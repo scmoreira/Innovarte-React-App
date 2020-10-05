@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Artworks = require('./../models/artwork.model')
-const User = require('./../models/artwork.model')
+const User = require('./../models/user.model')
 
 const nameDb = 'innovarte'
 mongoose.connect(`mongodb://localhost/${nameDb}`, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -68,21 +68,16 @@ let createArtworks = Artworks.create(artworks)
 let createUsers = User.create(users)
 
 Promise.all([createArtworks, createUsers])
-    .then(results => {
-        console.log(results[0], 'artworks created and ', results[1], 'users created.')
-    })
+    .then(results => {console.log(results[0], 'artworks created and ', results[1], 'users created.')})
+    .then(() => mongoose.connection.close())
     .catch(err => console.log(err))
      
 
 
 // Artworks.create(artworks)
-//     .then(allArtworks => 
-//         console.log(allArtworks.length, 'artworks have been created.')
-//     )
+//     .then(allArtworks => console.log(allArtworks.length, 'artworks have been created.'))
 //     .catch(err => console.log('ERROR: ', err))
 
 // User.create(users)
-// .then(allUsers => 
-//     console.log(allUsers.length, 'users have been created.')
-// )
-// .catch(err => console.log('ERROR: ', err))
+//     .then(allUsers => console.log(allUsers.length, 'users have been created.'))
+//     .catch(err => console.log('ERROR: ', err))
