@@ -1,0 +1,17 @@
+.navbar {
+    font-size: 2em;
+    padding-right: 1%;
+    padding-left: 1%;
+}
+
+.brand {
+    font-size: 1.3em;
+    letter-spacing: 1.5px;
+}
+
+.logo {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
