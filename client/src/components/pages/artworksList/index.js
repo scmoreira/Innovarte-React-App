@@ -48,7 +48,7 @@ class ArtworksList extends Component {
                     </div>
                     <div>
                         <Row>
-                            {this.state.artworks.map(elm => <ArtworkCard key={elm._id} {...elm} />)}
+                            {this.state.artworks && this.state.artworks.map(elm => <ArtworkCard key={elm._id} {...elm} />)}
                         </Row>
                     </div>
                 </Container>
