@@ -27,8 +27,8 @@ const Navigation = () => {
                     <NavLink to='/signup' className='nav-link' style={{ textDecoration: 'none' }}>Signup</NavLink>
                     <NavLink to='/login' className='nav-link' style={{ textDecoration: 'none' }}>Login</NavLink>
                     <NavLink to='/perfil' className='nav-link' style={{ textDecoration: 'none' }}>Mi cuenta</NavLink>
-                    <NavLink to='/'><img src={cart} className='logo'></img></NavLink>
-                    <NavLink to='/carrito'><img src={logout} className='logo'></img></NavLink>
+                    <NavLink to='/'><img src={cart} alt='cart' className='logo'></img></NavLink>
+                    <NavLink to='/carrito'><img src={logout} alt='logout' className='logo'></img></NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

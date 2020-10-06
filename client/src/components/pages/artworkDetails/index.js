@@ -1,13 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import artworkService from './../../../service/artworks.service'
-
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
+import artworkService from '../../../service/artworks.service'
 
 import './ArtworkDetails.css'
 
@@ -53,21 +47,3 @@ class ArtworkDetails extends Component {
 }
 
 export default ArtworkDetails
-
-{/* <Card className='art-details'>
-                    <Row>
-                        <Col md={4}>
-                            <img className='img-details' variant='top' src={this.state.image} alt={this.state.title} />
-                        </Col>
-                        <Col md={{ span: 6, offset: 1 }}>
-                            <Card.Body>
-                                <Card.Title>{this.state.title}</Card.Title>
-                                <Card.Text>de {this.state.artist}</Card.Text>
-                                <Card.Text>{this.state.price} {this.state.currency}</Card.Text>
-                                <Card.Text>Materiales: {this.state.materials} | Medidas: {this.state.size} cm.</Card.Text>
-                                <Link to='/carrito'><Button variant='dark'>Comprar</Button></Link>
-                                <Link to='/obras'><Button variant='dark'>Atrás</Button></Link>
-                            </Card.Body>
-                        </Col>
-                    </Row>
-                </Card> */}

@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 
-import artworkService from './../../../service/artworks.service'
+import artworkService from '../../../service/artworks.service'
 import ArtworkCard from './ArtworkCard'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Button from 'react-bootstrap/Button'
 
 import './ArtworksList.css'
 
