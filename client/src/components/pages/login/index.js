@@ -8,19 +8,15 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-import avatar from './avatar-default.png'
-import './Signup.css'
+import './Login.css'
 
-class Signup extends Component {
+class Login extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             username: '',
-            password: '',
-            email: '',
-            avatar: '',
-            role: ''
+            password: ''
         }
         this.authService = new authService()
     }
@@ -35,8 +31,8 @@ class Signup extends Component {
         e.preventDefault()
 
         this.authService
-            .signup(this.state)
-            .then(response => { 
+            .login(this.state)
+            .then(response => {
                 this.props.setTheUser(response.data)
                 this.props.history.push('/')
             })
@@ -44,39 +40,22 @@ class Signup extends Component {
     }
 
     render() {
-
         return (
             <Container className='signup-form'>
                 <main>
                     <Row className='justify-content-center'>
                         <Col md={{ span: 5 }}>
-                            <h1>Registro de usuario</h1>
+                            <h1>Inicio de sesión</h1>
                             <Form onSubmit={this.handleFormSubmit}>
                                 <Form.Group>
-                                    <Form.Label>* Nombre de usuario</Form.Label>
+                                    <Form.Label>Nombre de usuario</Form.Label>
                                     <Form.Control type='text' name='username' value={this.state.username} onChange={this.handleChange} placeholder='Tu nombre de usuario' />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>* Email</Form.Label>
-                                    <Form.Control type='email' name='email' value={this.state.email} onChange={this.handleChange} placeholder='Tu email' />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>* Contraseña</Form.Label>
+                                    <Form.Label>Contraseña</Form.Label>
                                     <Form.Control type='password' name='password' placeholder='********' value={this.state.password} onChange={this.handleChange} />
                                 </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Imagen de perfil</Form.Label>
-                                    <input name='avatar' value={this.state.avatar} onChange={this.handleChange} placeholder='Opcional' />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>* Registro como: </Form.Label>
-                                    <select name='role'value={this.state.role} onChange={this.handleChange}>
-                                        <option>Selecciona</option>
-                                        <option value='usuario'>USUARIO</option>
-                                        <option value='artista'>ARTISTA</option>
-                                    </select>
-                                </Form.Group>
-                                <Button variant='dark' type='submit'>Registrarme</Button>
+                                <Button variant='dark' type='submit'>Iniciar sesión</Button>
                             </Form>
                         </Col>
                     </Row>
@@ -86,4 +65,4 @@ class Signup extends Component {
     }
 }
 
-export default Signup
+export default Login

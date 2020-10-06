@@ -1,0 +1,54 @@
+import React, { Component } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+
+import authService from './../../../service/auth.service'
+
+import NavbarGuest from './NavbarGuest'
+import NavbarUser from './NavbarUser'
+
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+
+import logout from './logout.png'
+
+import './Navbar.css'
+
+class Navigation extends Component {
+
+    constructor(props) {
+        super(props)
+        this.authService = new authService()
+    }
+
+    logoutUser = () => {
+        this.authService
+            .logout()
+            .then(() => this.props.setTheUser(null))
+            .catch(err => console.log(err))
+    }
+
+    render() {
+        return (
+            <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' fixed='top' className='navbar'>
+                <Link to='/'>
+                    <Navbar.Brand className='brand'>
+                        <img alt='' src='' width='30' height='30' className='d-inline-block align-top' />
+                        {' '} Innovarte!
+                    </Navbar.Brand>
+                </Link>
+                <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+                <Navbar.Collapse id='responsive-navbar-nav'>
+                    <Nav className='ml-auto'>
+                        <NavLink to='/#cómo-funciona' className='nav-link'>Cómo funciona</NavLink>
+                        <NavLink to='/obras' className='nav-link'>Obras</NavLink>
+                        {!this.props.loggedInUser && <NavbarGuest />}
+                        {this.props.loggedInUser && <NavbarUser />}
+                        {this.props.loggedInUser && <NavLink to='/' className='nav-link' onClick={this.logoutUser}><img src={logout} alt='Cerrar sesión' className='logo' /></NavLink>}
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        )
+    }
+}
+
+export default Navigation

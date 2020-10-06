@@ -1,0 +1,9 @@
+.container.user-profile {
+    display: flex;
+    justify-content: center;
+}
+
+.user-profile h1 {
+    margin-top: 10%;
+    font-size: 3em;
+}
