@@ -10,6 +10,7 @@ const Artworks = require('../models/artwork.model')
 router.get('/getAllArtworks', (req, res) => {
 
     Artworks.find()
+        .populate('owner')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
     
@@ -24,6 +25,7 @@ router.get('/getOneArtwork/:artwork_id', (req, res) => {
     }
 
     Artworks.findById(req.params.artwork_id)
+        .populate('owner')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
     
@@ -32,7 +34,7 @@ router.get('/getOneArtwork/:artwork_id', (req, res) => {
 //Find the artworks of an user
 // router.get('/artworks/:owner_id', (req, res) => {
 
-//   Artworks.find({ owner:  req.params.user_id })
+//   Artworks.find({ owner:  req.params.owner_id })
 //       .then(works => { res.json(works) })
 //       .catch(err => res.status(500).json(err))
 

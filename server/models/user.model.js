@@ -24,8 +24,8 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['ADMIN', 'USER', 'ARTIST'],
-        default: 'USER'
+        enum: ['admin', 'usuario', 'artista'],
+        required: true
     },
     cart: {
         type: [String],
