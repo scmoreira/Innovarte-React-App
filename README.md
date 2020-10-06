@@ -14,6 +14,15 @@
 | `PUT` | api/editArtwork/:artwork_id | Edit an artwork |
 | `DELETE` | api/:artwork_id/deleteArtwork | Delete an artwork |
 
+### Users
+
+| Method | Path   | Description |
+| ------ | ------ | ----------- |
+| `POST` | api/signup | Signup new user |
+| `POST` | api/login | Login session |
+| `POST` | api/logout | Logout session |
+| `GET` | api/loggedin | Maintain session opened |
+
 ## Components
 
 - App
