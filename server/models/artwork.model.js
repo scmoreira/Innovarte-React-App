@@ -35,14 +35,14 @@ const artworkSchema = new Schema({
         type: String,
         enum: ['Pintura', 'Escultura', 'Dibujo', 'Artesanía', 'Fotografía', 'Otros'],
         default: 'Otros'
-    }, 
+    },
     artist: {
         type: String,
         required: true,
     },
     owner: {
-        type: Schema.Types.ObjectId,
-        rel: 'User'
+        type: String,
+        required: true
     }
 }, {
     timestamps: true

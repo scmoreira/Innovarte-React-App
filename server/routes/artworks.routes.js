@@ -25,20 +25,19 @@ router.get('/getOneArtwork/:artwork_id', (req, res) => {
     }
 
     Artworks.findById(req.params.artwork_id)
-        .populate('owner')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
     
 })
 
 //Find the artworks of an user
-// router.get('/artworks/:owner_id', (req, res) => {
+router.get('/getArtworksUser/:owner_id', (req, res) => {
 
-//   Artworks.find({ owner:  req.params.owner_id })
-//       .then(works => { res.json(works) })
-//       .catch(err => res.status(500).json(err))
+  Artworks.find({ owner:  req.params.owner_id })
+      .then(works => { res.json(works) })
+      .catch(err => res.status(500).json(err))
 
-// })
+})
 
 //Add an artwork
 router.post('/newArtwork', (req, res) => {
@@ -71,6 +70,5 @@ router.delete('/:artwork_id/deleteArtwork', (req, res) => {
         .catch(err => res.status(500).json(err))
     
 })
-
 
 module.exports = router
