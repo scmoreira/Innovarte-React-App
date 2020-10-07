@@ -13,9 +13,10 @@ class ArtworkService {
     //Methods
     getAllArtworks = () => this.api.get('/getAllArtworks')
     getOneArtwork = id => this.api.get(`/getOneArtwork/${id}`)
-    createArtwork = artwork => this.api.get('/newArtwork', artwork)
-    updateArtwork = (id, artwork) => this.api.get(`/editArtwork/${id}`, artwork)
-    deleteArtwork = (id) => this.api.get(`/${id}/deleteArtwork`)
+    getArtworksUser = id => this.api.get(`/getArtworksUser/${id}`)
+    createArtwork = artwork => this.api.post('/newArtwork', artwork)
+    updateArtwork = (id, artwork) => this.api.put(`/editArtwork/${id}`, artwork)
+    deleteArtwork = (id) => this.api.delete(`/${id}/deleteArtwork`)
 
 }
 

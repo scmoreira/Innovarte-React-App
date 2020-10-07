@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import authService from './../../../service/auth.service'
 
+import FormsInputs from './../forms/FormsInputs'
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -47,14 +49,8 @@ class Login extends Component {
                         <Col md={{ span: 5 }}>
                             <h1>Inicio de sesión</h1>
                             <Form onSubmit={this.handleFormSubmit}>
-                                <Form.Group>
-                                    <Form.Label>Nombre de usuario</Form.Label>
-                                    <Form.Control type='text' name='username' value={this.state.username} onChange={this.handleChange} placeholder='Tu nombre de usuario' />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Contraseña</Form.Label>
-                                    <Form.Control type='password' name='password' placeholder='********' value={this.state.password} onChange={this.handleChange} />
-                                </Form.Group>
+                                <FormsInputs label='Tu nombre de usuario' type='text' name='username' value={this.state.username} onChange={this.handleChange} placeholder='Tu nombre de usuario' /> 
+                                <FormsInputs label='Contraseña' type='password' name='password' placeholder='********' value={this.state.password} onChange={this.handleChange} />
                                 <Button variant='dark' type='submit'>Iniciar sesión</Button>
                             </Form>
                         </Col>

@@ -43,10 +43,11 @@
     align-items: center;
     width: 75%;
     height: 300px;
-    margin-bottom: 30px;
+    margin-bottom: 5%;
     text-align: center;
     font-size: 1.3em;
     padding: 0;
+    border: none;
 }
 
 .artwork-card img {
@@ -96,6 +97,7 @@
     .artwork-card {
         width: 100%;
         font-size: 1.8em;
+        margin-bottom: 15%;
     }
 
     .artwork-card img {
@@ -126,7 +128,7 @@
         font-size: 5em;
         font-weight: 700;
         margin-top: 5%;
-        margin-bottom: 8%;
+        margin-bottom: 4%;
         margin-left: 40%;
     }
     
@@ -138,9 +140,8 @@
     
     .nav-filter form {
         display: flex;
-        padding-top: 0;
+        padding-top: 1%;
         margin-right: 5%;
-        margin-bottom: 25px;
         width: 200px;
         font-size: 1.8em;
         justify-content: right;

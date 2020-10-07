@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 
-const ArtworkCard = ({_id, title, artist, currency, price, image}) => {
+const ArtworkCard = ({_id, title, artist, currency, price, image, tags}) => {
     return (
         <Col xs={6} sm={4} md={3} className="artwork-card">
             <Card>
@@ -14,8 +14,9 @@ const ArtworkCard = ({_id, title, artist, currency, price, image}) => {
                 <Card.Body>
                     <h4>{title}</h4>
                     <h5><span className='text-muted'>de </span>{artist}</h5>
+                    <p>{tags}</p>
                     <p>{price} {currency}</p>
-                    <Link to={`/obras/detalles/${_id}`}>
+                    <Link to={`/obras/detalles/${_id}`} style={{textDecoration: 'none'}}>
                         <Button variant="dark" size="sm" block>Detalles</Button>
                     </Link>
                 </Card.Body>

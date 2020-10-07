@@ -7,8 +7,7 @@ import Navigation from './layout/navbar'
 import Footer from './layout/footer'
 
 import Home from './pages/home'
-import Signup from './pages/signup'
-import Login from './pages/login'
+import FormsContainer from './pages/forms/FormsContainer'
 import ArtworksList from './pages/artworksList'
 import ArtworkDetails from './pages/artworkDetails'
 import UserProfile from './pages/userProfile'
@@ -43,8 +42,8 @@ class App extends Component {
         <Switch>
           <Route path='/' exact render={() => <Home />} />
 
-          <Route path='/signup' render={props => <Signup setTheUser={this.setTheUser} {...props} />} />
-          <Route path='/login' render={props => <Login setTheUser={this.setTheUser} {...props} />} />
+          <Route path='/signup' render={props => <FormsContainer setTheUser={this.setTheUser} {...props} />} />
+          <Route path='/login' render={props => <FormsContainer setTheUser={this.setTheUser} {...props} />} /> 
 
           <Route path='/obras' exact render={() => <ArtworksList />} />
           <Route path='/obras/detalles/:obra_id' render={props => <ArtworkDetails {...props} />} />
