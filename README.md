@@ -27,7 +27,9 @@
 
 - App
 - Layout
-  - Navbar
+  - Forms
+    - NavbarGuest
+    - NavbarUser
   - Footer
 - Pages
   - Home
@@ -37,8 +39,8 @@
     - Artwork Card Details
   - Login
   - Signup
-  - New Artwork
   - User Profile
+    - New Artwork
 - Shared 
 
 ## Models
