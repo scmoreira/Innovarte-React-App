@@ -27,20 +27,25 @@
 
 - App
 - Layout
-  - Forms
+  - Navbar
     - NavbarGuest
     - NavbarUser
   - Footer
 - Pages
   - Home
-  - Artworks List
-    - Artwork Card
-  - Artwork Details
-    - Artwork Card Details
+  - ArtworksList
+    - ArtworkCard
+  - ArtworkDetails
   - Login
   - Signup
   - User Profile
     - New Artwork
+  - Forms
+    - FormsContainer
+    - FormsInputs
+  - UserProfile
+    - InfoCard
+  - NewArtwork
 - Shared 
 
 ## Models
