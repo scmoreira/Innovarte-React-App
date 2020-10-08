@@ -26,7 +26,7 @@ class App extends Component {
 
   componentDidMount = () => this.fetchUser()
 
-  setTheUser = user => this.setState({loggedInUser: user}, () => console.log('el usuario es ', this.state.loggedInUser))
+  setTheUser = user => this.setState({loggedInUser: user})
 
   fetchUser = () => {
     this.authService
@@ -46,7 +46,7 @@ class App extends Component {
           <Route path='/login' render={props => <FormsContainer setTheUser={this.setTheUser} {...props} />} /> 
 
           <Route path='/obras' exact render={() => <ArtworksList />} />
-          <Route path='/obras/detalles/:obra_id' render={props => <ArtworkDetails {...props} />} />
+          <Route path='/obras/detalles/:obra_id' render={props => <ArtworkDetails loggedInUser={this.state.loggedInUser}{...props} />} />
           <Route path='/perfil' render={() => this.state.loggedInUser ? <UserProfile loggedInUser={this.state.loggedInUser} /> : <Redirect to='/login' /> } />
         </Switch>
         <Footer />

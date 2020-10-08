@@ -60,6 +60,10 @@
     #cardInfo img {
         width: 100px;
     }
+
+    #cardInfo button {
+        margin-left: 1.5%;
+    }
     
     .userInfo p {
         font-size: 1.3em;

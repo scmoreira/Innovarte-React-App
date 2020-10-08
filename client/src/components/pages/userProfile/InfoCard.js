@@ -16,7 +16,7 @@ const InfoCard = ({ loggedInUser }) => {
             <Media.Body className='userInfo'>
                 <h1>Hola {loggedInUser.username}!</h1>
                 <p><small className='text-muted'>{loggedInUser.role}</small> | {loggedInUser.email}</p>
-                <button></button>
+                <button onClick={() => this.handleModal(true)} className='btn btn-dark'>Editar perfil</button>
             </Media.Body>
         </Media>
         </>

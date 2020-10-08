@@ -48,13 +48,13 @@ class UserProfile extends Component {
                         <section>
                             <h3>Obras compradas</h3>
                         </section>
-                        <section>
+                        {this.state.role === 'artista' && <section>
                             <h3>Tus obras</h3>
-                            <Row>
-                                {this.state.userArtworks.map(artwork => <Col key={artwork._id} sm={12} md={4} lg={3}><ArtworkCard {...artwork} /></Col>)}
-                            </Row>
-                        </section>
-                        {this.state.role === 'artista' && <Button onClick={() => this.handleModal(true)} style={{ marginBottom: '20px' }} variant="dark" size="md">Agregar obra</Button>}
+                            <div className='container-fluid row'>
+                                {this.state.userArtworks.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)}
+                            </div>
+                            <Button onClick={() => this.handleModal(true)} style={{ marginBottom: '20px' }} variant="dark" size="md">Agregar obra</Button>
+                        </section>}
                     </main>
                 </Container>
 
