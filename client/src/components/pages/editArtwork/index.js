@@ -37,8 +37,7 @@ class EditArtwork extends Component {
         this.artworksService
             .updateArtwork(this.props.artwork._id, this.state)
             .then(() => {
-                this.props.closeModal()
-                this.props.refreshList()
+                this.props.finishActions()
             })
             .catch(err => console.log('Error!', { err }))
     }
@@ -76,7 +75,7 @@ class EditArtwork extends Component {
                         </select>
                 </Form.Group>
                 <FormsInputs label='Nombre de artista' type="text" name="artist" value={this.state.artist} onChange={this.handleInputChange} />
-                <Button onClick={() => this.props.closeModal()} variant="dark">Cancelar</Button>
+                <Button onClick={() => this.props.finishActions()} variant="dark">Cancelar</Button>
                 <Button variant="dark" type="submit">Confirmar</Button>
             </Form>
         )

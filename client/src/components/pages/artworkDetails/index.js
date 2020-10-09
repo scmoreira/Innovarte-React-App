@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import artworkService from '../../../service/artworks.service'
 
+import Alert from './../../shared/Alert'
 import EditArtwork from './../editArtwork'
 
 import Modal from 'react-bootstrap/Modal'
@@ -14,8 +15,10 @@ class ArtworkDetails extends Component {
         super(props)
         this.state = {
             artwork: {},
-            showModal: false
+            showModal: false,
+            showAlert: false
         }
+
         this.loggedInUser = props.loggedInUser
         this.artworkService = new artworkService()
     }
@@ -29,7 +32,8 @@ class ArtworkDetails extends Component {
             .catch(err => console.log(err))
     }
 
-    handleModal = showModal => this.setState(({ showModal }))
+    handleModal = showModal => this.setState({ showModal })
+    handleAlert = showAlert => this.setState({ showAlert })
 
     handleDelete = e => {
         
@@ -37,7 +41,7 @@ class ArtworkDetails extends Component {
 
         this.artworkService
             .deleteArtwork(this.state.artwork._id)
-            .then(response => console.log(response.data))
+            .then(() => this.props.history.push('/perfil'))
             .catch(err => console.log('Error ', {err}))
     }
 
@@ -55,6 +59,11 @@ class ArtworkDetails extends Component {
         } else {
             return false
         }
+    }
+
+    finishActions = () => {
+        this.handleModal(false)
+        this.loadArtwork()
     }
 
     render() {
@@ -78,7 +87,8 @@ class ArtworkDetails extends Component {
                                 
                                 {this.showUserButtons() &&
                                     <>
-                                    <button onClick={this.handleDelete} className='btn btn-danger'>Eliminar</button>
+                                    <button onMouseEnter={()=> this.handleAlert(true)} onClick={this.handleDelete} className='btn btn-danger'>Eliminar</button>
+                                    {this.state.showAlert === true && <Alert title="Aviso!" text="Si borras esta obra no podrás recuperarla. Cierra para continuar." />}
                                     <button onClick={() => this.handleModal(true)} className='btn btn-dark'>Editar</button>
                                     </>
                                 }
@@ -93,7 +103,7 @@ class ArtworkDetails extends Component {
                         <Modal.Title>Edita tu obra</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <EditArtwork artwork={this.state.artwork} loggedInUser={this.loggedInUser} closeModal={() => this.handleModal(false)} refreshList={this.loadArtwork} /> 
+                        <EditArtwork artwork={this.state.artwork} loggedInUser={this.loggedInUser} finishActions={this.finishActions} /> 
                     </Modal.Body>
                 </Modal>
             </section>

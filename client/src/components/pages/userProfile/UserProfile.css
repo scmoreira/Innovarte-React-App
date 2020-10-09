@@ -50,6 +50,10 @@
         font-size: 3.5em;
     }
 
+    #user-details button{
+        margin-left: 2%;
+    }
+
     #cardInfo {
         margin-top: 0;
         font-size: 2em;
@@ -59,10 +63,6 @@
     
     #cardInfo img {
         width: 100px;
-    }
-
-    #cardInfo button {
-        margin-left: 1.5%;
     }
     
     .userInfo p {

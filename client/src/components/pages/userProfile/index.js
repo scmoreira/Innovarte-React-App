@@ -37,13 +37,19 @@ class UserProfile extends Component {
 
     handleModal = showModal => this.setState(({ showModal }))
 
+    finishAction = () => {
+        this.handleModal(false)
+        this.loadArtworks()
+    }
+
     render() {
         return (
             <>
                 <Container className='container user-profile'>
                     <main>
-                        <section>
+                        <section id='user-details'>
                             <InfoCard loggedInUser={this.props.loggedInUser} />
+                            <button onClick={() => this.handleModal(true)} className='btn btn-dark'>Editar perfil</button>
                         </section>
                         <section>
                             <h3>Obras compradas</h3>
@@ -63,7 +69,7 @@ class UserProfile extends Component {
                         <Modal.Title>Añade tu obra</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <NewArtwork loggedInUser={this.props.loggedInUser} closeModal={() => this.handleModal(false)} refreshList={this.loadArtworks} />
+                        <NewArtwork loggedInUser={this.props.loggedInUser} finishAction={this.finishAction} />
                     </Modal.Body>
                 </Modal>
             </>
