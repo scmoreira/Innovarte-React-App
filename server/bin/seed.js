@@ -18,7 +18,8 @@ const artworks = [
         currency: 'USD',
         price: 2000000,
         tags: 'Pintura',
-        artist: 'Leonardo Da Vinci'
+        artist: 'Leonardo Da Vinci',
+        owner:'5f80296e033ae173994875e1'
     },
     {
         title: 'El David',
@@ -29,7 +30,8 @@ const artworks = [
         currency: 'USD',
         price: 1500000,
         tags: 'Escultura', 
-        artist: 'Miguel Ángel'
+        artist: 'Miguel Ángel',
+        owner:'5f80296e033ae173994875e1'
     },
     {
         title: 'Guernica',
@@ -40,7 +42,8 @@ const artworks = [
         currency: 'EUR',
         price: 1000000,
         tags: 'Pintura',
-        artist: 'Picasso'
+        artist: 'Picasso',
+        owner:'5f80296e033ae173994875e1'
     },
     {
         title: 'El Pensador',
@@ -51,7 +54,8 @@ const artworks = [
         currency: 'EUR',
         price: 2000000,
         tags: 'Escultura',
-        artist: 'Rodin'
+        artist: 'Rodin',
+        owner: '5f80296e033ae173994875e1'
     }
 ]
 
@@ -60,7 +64,7 @@ const users = [
         username: 'cecilia',
         password: 'cecilia',
         email: 'cecilia@email.com',
-        role: 'ADMIN'
+        role: 'admin'
     }
 ]
 
