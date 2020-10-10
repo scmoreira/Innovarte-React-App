@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 
+const uploader = require('../configs/cloudinary.config')
+
 const Artworks = require('../models/artwork.model')
 
 // Endpoints
@@ -10,7 +12,6 @@ const Artworks = require('../models/artwork.model')
 router.get('/getAllArtworks', (req, res) => {
 
     Artworks.find()
-        .populate('owner')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
     
@@ -39,10 +40,31 @@ router.get('/getArtworksUser/:owner_id', (req, res) => {
 
 })
 
-//Add an artwork
-router.post('/newArtwork', (req, res) => {
+//Find the artworks of an artist
+router.get('/getUserArtworks/:artist', (req, res) => {
 
-    Artworks.create(req.body)
+    Artworks.find({ artist:  req.params.artist })
+        .then(works => { res.json(works) })
+        .catch(err => res.status(500).json(err))
+  
+  })
+
+//Find artworks by tag
+router.get('/getArtworksByTag/:tag', (req, res) => {
+
+    Artworks.find({ tags:  req.params.tag })
+        .then(works => { res.json(works) })
+        .catch(err => res.status(500).json(err))
+  
+})
+
+//Add an artwork
+router.post('/newArtwork', uploader.single('image'), (req, res) => {
+
+    const {title, description, price, currency, size, materials, artist, owner, tags } = req.body
+    let imageFile = req.file.url
+
+    Artworks.create({title, description, price, currency, size, materials, artist, owner, tags, image:imageFile })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
     
@@ -66,7 +88,7 @@ router.put('/editArtwork/:artwork_id', (req, res) => {
 router.delete('/:artwork_id/deleteArtwork', (req, res) => {
      
     Artworks.findByIdAndDelete(req.params.artwork_id)
-    .then(response => res.json(response))
+        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
     
 })

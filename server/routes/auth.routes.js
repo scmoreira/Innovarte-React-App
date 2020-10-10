@@ -65,7 +65,7 @@ router.post('/login', (req, res, next) => {
 
         if (!theUser) {
             res.status(401).json(failureDetails)
-            return;
+            return
         }
 
         req.login(theUser, (err) => {
