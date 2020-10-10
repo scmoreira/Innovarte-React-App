@@ -46,7 +46,7 @@ class ArtworkDetails extends Component {
     }
 
     showBuyButton = () => {
-        if (!this.loggedInUser || this.loggedInUser._id != this.state.artwork.owner) {
+        if (!this.loggedInUser || this.loggedInUser._id !== this.state.artwork.owner) {
             return true
         } else {
             return false

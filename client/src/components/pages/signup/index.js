@@ -54,15 +54,10 @@ class Signup extends Component {
                             <Form onSubmit={this.handleFormSubmit}>
                                 <FormsInputs label='Nombre de usuario' type='text' name='username' value={this.state.username} onChange={this.handleChange} placeholder='Tu nombre de usuario' />
                                 <FormsInputs label='Email' type='email' name='email' value={this.state.email} onChange={this.handleChange} placeholder='Tu email' />
-                                <FormsInputs label='Contraseña' type='password' name='password' placeholder='********' value={this.state.password} onChange={this.handleChange} />
-                                <FormsInputs label='Imagen de perfil' type='text' name='avatar' value={this.state.avatar} onChange={this.handleChange} placeholder='Opcional'  />
+                                <FormsInputs label='Contraseña' type='password' name='password' placeholder='*****' value={this.state.password} onChange={this.handleChange} />
                                 <Form.Group>
-                                    <Form.Label>* Registro como: </Form.Label>
-                                    <select name='role'value={this.state.role} onChange={this.handleChange}>
-                                        <option>Selecciona</option>
-                                        <option value='usuario'>USUARIO</option>
-                                        <option value='artista'>ARTISTA</option>
-                                    </select>
+                                    <label>Usuario<input type='radio' name='role' value='usuario' onChange={this.handleChange} /></label>
+                                    <label>Artista<input type='radio' name='role' value='artista' onChange={this.handleChange} /></label>
                                 </Form.Group>
                                 <Button variant='dark' type='submit'>Registrarme</Button>
                             </Form>

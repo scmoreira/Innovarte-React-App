@@ -9,18 +9,18 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-import './Signup.css'
+import './../signup/Signup.css'
 
 class EditUserProfile extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            username: '',
+            username: this.props.loggedInUser.username,
             password: '',
-            email: '',
-            avatar: '',
-            role: ''
+            email: this.props.loggedInUser.email,
+            avatar: this.props.loggedInUser.avatar,
+            role: this.props.loggedInUser.role
         }
         this.authService = new authService()
     }
@@ -45,26 +45,24 @@ class EditUserProfile extends Component {
 
     render() {
 
+        const { username, email, password, avatar, role } = this.state
+        
         return (
             <Container className='signup-form'>
                 <main>
                     <Row className='justify-content-center'>
                         <Col md={{ span: 5 }}>
-                            <h1>Registro de usuario</h1>
+                            <h1>Tus datos actuales</h1>
                             <Form onSubmit={this.handleFormSubmit}>
-                                <FormsInputs label='Nombre de usuario' type='text' name='username' value={this.state.username} onChange={this.handleChange} placeholder='Tu nombre de usuario' />
-                                <FormsInputs label='Email' type='email' name='email' value={this.state.email} onChange={this.handleChange} placeholder='Tu email' />
-                                <FormsInputs label='Contraseña' type='password' name='password' placeholder='********' value={this.state.password} onChange={this.handleChange} />
-                                <FormsInputs label='Imagen de perfil' type='text' name='avatar' value={this.state.avatar} onChange={this.handleChange} placeholder='Opcional'  />
+                                <FormsInputs label='Nombre de usuario' type='text' name='username' value={username} onChange={this.handleChange} placeholder='Tu nombre de usuario' />
+                                <FormsInputs label='Email' type='email' name='email' value={email} onChange={this.handleChange} placeholder='Tu email' />
+                                <FormsInputs label='Contraseña' type='password' name='password' placeholder='*****' value={password} onChange={this.handleChange} />
+                                <FormsInputs label='Imagen de perfil' type='file' name='avatar' value={avatar} onChange={this.handleChange} placeholder='Opcional'  />
                                 <Form.Group>
-                                    <Form.Label>* Registro como: </Form.Label>
-                                    <select name='role'value={this.state.role} onChange={this.handleChange}>
-                                        <option>Selecciona</option>
-                                        <option value='usuario'>USUARIO</option>
-                                        <option value='artista'>ARTISTA</option>
-                                    </select>
+                                    <label>Usuario<input type='radio' name='role' value='usuario' onChange={this.handleChange} /></label>
+                                    <label>Artista<input type='radio' name='role' value='artista' onChange={this.handleChange} /></label>
                                 </Form.Group>
-                                <Button variant='dark' type='submit'>Registrarme</Button>
+                                <Button variant='dark' type='submit'>Confirmar</Button>
                             </Form>
                         </Col>
                     </Row>

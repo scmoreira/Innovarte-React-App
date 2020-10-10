@@ -2,10 +2,8 @@
 import React, { Component } from 'react'
 
 import artworksService from '../../../service/artworks.service'
-import fileUploadService from './../../../service/file-upload.service'
 
 import FormsInputs from './../forms/FormsInputs'
-import Alert from './../../shared/Alert'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -25,54 +23,37 @@ class NewArtwork extends Component {
                 tags: 'Otros',
                 artist: '',
                 owner: this.props.loggedInUser._id
-            },
-            uploadingImage: false,
-            showAlert: false
+            }
         }
 
         this.tagsValues = ['Pintura', 'Escultura', 'Dibujo', 'Artesanía', 'Fotografía', 'Otros']
         this.currenciesValues = ['EUR', 'USD']
 
         this.artworksService = new artworksService()
-        this.fileUploadService = new fileUploadService()
     }
 
     handleInputChange = e => {
-        const { name, value } = e.target
-        this.setState({ artwork: { ...this.state.artwork, [name]: value } })
+        const value = e.target.type === 'file' ? e.target.files[0] : e.target.value 
+        this.setState({ artwork: { ...this.state.artwork, [e.target.name]: value } })
     }
 
     handleFormSubmit = e => {
         e.preventDefault()
 
+        const uploadData = new FormData()
+
+        Object.keys(this.state.artwork).forEach(key => {
+            uploadData.append(key, this.state.artwork[key])
+        })
+
         this.artworksService
-            .createArtwork(this.state.artwork)
+            .createArtwork(uploadData)
             .then(() => {
                 this.props.finishAction()
                 this.props.handleAlert()
             })
             .catch(err => console.log('Error!', { err }))
     }
-
-    // handleImageUpload = e => {
-
-    //     this.setState({ uploadingImage: true })
-
-    //     const uploadData = new FormData()
-    //     uploadData.append('image', e.target.files[0])
-        
-    //     this.fileUploadService
-    //         .uploadImage(uploadData)
-    //         .then(response => {
-    //             this.setState({
-    //                 artwork: { ...this.state.artwork, image: response.data.secure_url },
-    //                 uploadingImage: null
-    //             })
-    //         })
-    //         .catch(err => console.log('Error', {err}))
-    // }
-
-    handleAlert = showAlert => this.setState({ showAlert })
 
     render() {
 
@@ -100,11 +81,9 @@ class NewArtwork extends Component {
                             {this.tagsValues.map((tag, index) => <option key={index} value={tag}>{tag}</option>)}
                         </select>
                 </Form.Group>
-                <FormsInputs label='Imagen' type='text' name='image' onChange={this.handleInputChange} />
-                {/* <FormsInputs label='Imagen' type='file' name='image' onChange={this.handleImageUpload} /> */}
-                <Button onClick={() => this.props.finishAction()} variant="dark" >Cancelar</Button>
-                <Button variant="dark" type="submit" disabled={this.state.uploadingImage}>{this.state.uploadingImage ? 'Subiendo...' : 'Confirmar'}</Button>
-                {this.state.uploadingImage === null && <Alert title="Archivo subido" text="Confirma para terminar." />}
+                <FormsInputs label='Imagen' type='file' name='image' onChange={this.handleInputChange} />
+                <Button onClick={() => this.props.finishAction()} variant="dark">Cancelar</Button>
+                <Button variant="dark" type="submit">Confirmar</Button>
             </Form>
         )
     }

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 
 const ArtworkCard = ({_id, title, artist, currency, price, image, tags}) => {
