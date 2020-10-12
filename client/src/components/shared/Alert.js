@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import Toast from 'react-bootstrap/Toast'
 
  class Alert extends Component {
@@ -15,7 +16,7 @@ import Toast from 'react-bootstrap/Toast'
         return (
 
             <Toast
-                onClose={() => this.setState({ visible: false })} show={this.state.visible} delay={3000}
+                onClose={() => this.setState({ visible: false })} show={this.state.visible} 
                 style={{ position: 'fixed', top:'auto', right: 'auto',  minWidth: 100, color:'red', fontSize: 16}}
             >
                 <Toast.Header>

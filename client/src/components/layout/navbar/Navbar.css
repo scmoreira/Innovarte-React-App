@@ -17,6 +17,11 @@
 
 .cart {
     margin-top: 5px;
+    color: white;
+}
+
+.logout {
+    color: red;
 }
 
 .nav-link {

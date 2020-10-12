@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import authService from './../../../service/auth.service'
-import FormsInputs from './../forms/FormsInputs'
+import FormsInputs from './../../shared/FormsInputs'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'

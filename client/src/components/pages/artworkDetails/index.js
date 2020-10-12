@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 
 import artworkService from '../../../service/artworks.service'
 
+import { CgShoppingCart } from 'react-icons/cg'
+
 import Alert from './../../shared/Alert'
 import EditArtwork from './../editArtwork'
 
@@ -16,8 +18,9 @@ class ArtworkDetails extends Component {
         this.state = {
             artwork: {},
             showModal: false,
-            showAlert: false
-        }
+            showAlert: false,
+            addToCart: []
+       }
 
         this.loggedInUser = props.loggedInUser
         this.artworkService = new artworkService()
@@ -35,18 +38,32 @@ class ArtworkDetails extends Component {
     handleModal = showModal => this.setState({ showModal })
     handleAlert = showAlert => this.setState({ showAlert })
 
+    finishActions = () => {
+        this.handleModal(false)
+        this.loadArtwork()
+    }
+
     handleDelete = e => {
         
         e.preventDefault()
 
         this.artworkService
             .deleteArtwork(this.state.artwork._id)
-            .then(() => this.props.history.push('/perfil'))
+            .then(() => this.goBack())
             .catch(err => console.log('Error ', {err}))
     }
 
+    handleAddToCart = e => {
+
+        e.preventDefault()
+
+        console.log(this.loggedInUser.cart)
+        
+      //this.props.addToCart(this.state.artwork._id, this.loggedInUser._id)
+    }
+
     showBuyButton = () => {
-        if (!this.loggedInUser || this.loggedInUser._id !== this.state.artwork.owner) {
+        if (this.loggedInUser && this.loggedInUser._id !== this.state.artwork.owner) {
             return true
         } else {
             return false
@@ -54,27 +71,24 @@ class ArtworkDetails extends Component {
     }
 
     showUserButtons = () => {
-        if (this.loggedInUser && this.loggedInUser._id === this.state.artwork.owner) {
+        if (this.loggedInUser && this.loggedInUser._id === this.state.artwork.owner && this.state.artwork.available === true) {
             return true
         } else {
             return false
         }
     }
 
-    finishActions = () => {
-        this.handleModal(false)
-        this.loadArtwork()
-    }
+    goBack = () => this.props.history.goBack()
 
     render() {
         return (
             <section className='container-details'>
-                <div className='card'>
+                <div className='card container-fluid'>
                     <div className='row'>
-                        <div className='col-md-4'>
-                            <img src={this.state.artwork.image} className='card-img' alt={this.state.title} />
+                        <div className='col-md-6'>
+                            <img src={this.state.artwork.image} className='card-img' alt={this.state.title} thumbnail='true' />
                         </div>
-                        <div className='col-md-8 details'>
+                        <div className='col-md-6 details'>
                             <div className='card-body'>
                                 <h5 className='card-title'>{this.state.artwork.title}</h5>
                                 <p className='card-text'>de <span className='title'>{this.state.artwork.artist}</span></p>
@@ -83,7 +97,12 @@ class ArtworkDetails extends Component {
                                 Medidas: {this.state.artwork.size} cm.</small></p>
                                 <p>Precio: {this.state.artwork.price} {this.state.artwork.currency}</p>
 
-                                { this.showBuyButton() && <Link to='/carrito'><button className='btn btn-dark'>Comprar</button></Link> } 
+                                {this.showBuyButton() &&
+                                    <>
+                                    <Link to='/carrito'><button onClick={this.handleAddToCart} className='btn btn-dark'>Comprar</button></Link>
+                                    <button className='btn btn-dark' onClick={this.handleAddToCart}><CgShoppingCart className='add-to-cart'/></button> 
+                                    </>
+                                } 
                                 
                                 {this.showUserButtons() &&
                                     <>
@@ -92,7 +111,7 @@ class ArtworkDetails extends Component {
                                     <button onClick={() => this.handleModal(true)} className='btn btn-dark'>Editar</button>
                                     </>
                                 }
-                                <Link to='/obras'><button className='btn btn-dark'>Atrás</button></Link>
+                                <button onClick={this.goBack} className='btn btn-dark'>Atrás</button>
                             </div>
                         </div>
                     </div>

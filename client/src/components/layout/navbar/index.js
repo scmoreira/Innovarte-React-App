@@ -8,8 +8,9 @@ import NavbarUser from './NavbarUser'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import Alert from 'react-bootstrap/Alert'
 
-import logout from './logout.png'
+import { AiOutlinePoweroff } from 'react-icons/ai'
 
 import './Navbar.css'
 
@@ -26,7 +27,7 @@ class Navigation extends Component {
             .then(() => this.props.setTheUser(null))
             .catch(err => console.log(err))
     }
-
+    
     render() {
         return (
             <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' fixed='top' className='navbar'>
@@ -42,8 +43,8 @@ class Navigation extends Component {
                         <NavLink to='/#cómo-funciona' className='nav-link'>Cómo funciona</NavLink>
                         <NavLink to='/obras' className='nav-link'>Obras</NavLink>
                         {!this.props.loggedInUser && <NavbarGuest />}
-                        {this.props.loggedInUser && <NavbarUser />}
-                        {this.props.loggedInUser && <NavLink to='/' className='nav-link' onClick={this.logoutUser}><img src={logout} alt='Cerrar sesión' className='logo' /></NavLink>}
+                        {this.props.loggedInUser && <NavbarUser loggedInUser={this.props.loggedInUser} />}
+                        {this.props.loggedInUser && <NavLink to='/' className='nav-link' onClick={this.logoutUser}><AiOutlinePoweroff alt='Cerrar sesión' className='logo logout' /></NavLink>}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import authService from './../../../service/auth.service'
 
-import FormsInputs from './../forms/FormsInputs'
+import FormsInputs from './../../shared/FormsInputs'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -36,7 +36,7 @@ class Login extends Component {
             .login(this.state)
             .then(response => {
                 this.props.setTheUser(response.data)
-                this.props.history.push('/')
+                this.props.history.goBack()
             })
             .catch(err => console.log('Error: ', {err}))
     }

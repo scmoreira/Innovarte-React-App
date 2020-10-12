@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 import artworksService from '../../../service/artworks.service'
 
-import FormsInputs from './../forms/FormsInputs'
+import FormsInputs from './../../shared/FormsInputs'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -48,10 +48,7 @@ class NewArtwork extends Component {
 
         this.artworksService
             .createArtwork(uploadData)
-            .then(() => {
-                this.props.finishAction()
-                this.props.handleAlert()
-            })
+            .then(() => this.props.finishAction())
             .catch(err => console.log('Error!', { err }))
     }
 
@@ -64,7 +61,7 @@ class NewArtwork extends Component {
                 <FormsInputs label='Título de la obra' type="text" name="title" value={this.state.title} onChange={this.handleInputChange} />
                 <FormsInputs label='Nombre de artista' type="text" name="artist" value={this.state.artist} onChange={this.handleInputChange} />
                 <FormsInputs label='Descripción' type="text" name="description" value={this.state.description} onChange={this.handleInputChange} />
-                <FormsInputs label='Medidas<small>en centímetros</small>' type="text" name="size" value={this.state.size} onChange={this.handleInputChange} placeholder='Ej: 30x50' />
+                <FormsInputs label='Medidas en centímetros' type="text" name="size" value={this.state.size} onChange={this.handleInputChange} placeholder='Ej: 30x50' />
                 <FormsInputs label='Materiales' type="text" name="materials" value={this.state.materials} onChange={this.handleInputChange} />
                 <FormsInputs label='Precio' type="number" name="price" value={this.state.price} onChange={this.handleInputChange} />
                 <Form.Group>

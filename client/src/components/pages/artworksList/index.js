@@ -16,18 +16,20 @@ class ArtworksList extends Component {
             artworks: []
         }
         this.artworkService = new artworkService()
+        this.tagsValues = ['Pintura', 'Escultura', 'Dibujo', 'Artesanía', 'Fotografía', 'Otros']
     }
 
     componentDidMount = () => this.loadArtworks()
 
     loadArtworks = () => {
         this.artworkService
-            .getAllArtworks()
+            .getAvailableArtworks()
             .then(response => this.setState({ artworks: response.data }))
             .catch(err => console.log('Error:', err))
     }
 
     render() {
+
         return (
             <>
                 <Container fluid className='list-container'>
@@ -36,13 +38,8 @@ class ArtworksList extends Component {
                         <form>
                             <label>Filtra por</label>
                             <select>
-                                <option name='tags' value='Artista'>Artista</option>
-                                <option name='tags' value='Pintura'>Pintura</option>
-                                <option name='tags' value='Dibujo'>Dibujo</option>
-                                <option name='tags' value='Escultura'>Escultura</option>
-                                <option name='tags' value='Artesanía'>Artesanía</option>
-                                <option name='tags' value='Fotografía'>Fotografía</option>
-                                <option name='tags' value='Otros'>Otros</option>
+                                <option>Selecciona</option>
+                                {this.tagsValues.map((tag, index) => <option key={index} name='tags' value={tag}>{tag}</option>)}
                             </select>
                         </form>
                     </div>

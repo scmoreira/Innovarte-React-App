@@ -1,28 +1,36 @@
 import React, { Component } from 'react'
 
-import artworksService from './../../../service/artworks.service'
+import userService from './../../../service/user.service'
 
-import NewArtwork from '../newArtwork'
 import InfoCard from './InfoCard'
+import EditUserProfile from '../editUserProfile'
 import ArtworkCard from './../artworksList/ArtworkCard'
+import NewArtwork from '../newArtwork'
 
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
 import './UserProfile.css'
-import EditUserProfile from '../editUserProfile'
 
 class UserProfile extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            userArtworks: [],
-            role: this.props.loggedInUser.role,
+            info: {
+                username: this.props.loggedInUser.username,
+                email: this.props.loggedInUser.email,
+                role: this.props.loggedInUser.role,
+                password: this.props.loggedInUser.password
+            },
+            buyedArworks: [],
+            artworksOnSell: [],
+            soldArtworks: [],
+            cart: [],
             showModal: false
         }
-        this.artworksService = new artworksService()
+        this.userService = new userService()
         
         this.RequestedModalType = undefined
 
@@ -32,43 +40,106 @@ class UserProfile extends Component {
         }
     }
 
-    componentDidMount = () => this.loadOwnArtworks()
+    componentDidMount = () => {
+        this.loadArtworks()
+    }
 
-    loadOwnArtworks = () => {
-        this.artworksService
-            .getUserArtworks(this.props.loggedInUser._id)
-            .then(response => this.setState({ userArtworks: response.data }))
+    // componentDidUpdate = (prevProps, prevState) => {
+    //     if (prevState.info !== this.state.info ) {
+    //         return this.setState({ info: this.state.info })
+    //     }
+    // }
+
+    loadInfo = newInfo => {
+        this.setState({ info: newInfo })
+        //console.log('los datos pasados son ', newInfo, 'y el estado es ', this.state.info)
+    }
+
+    loadArtworks = () => {
+        this.loadBuyedArworks()
+        this.loadArtworksOnSell()
+        this.loadSoldArtworks()
+    }
+
+    loadBuyedArworks = () => {
+        this.userService
+            .getBuyedArtworks(this.props.loggedInUser._id)
+            .then(response => this.setState({ buyedArworks: response.data }))
+            .catch(err => console.log('Error', {err}))
+    }
+
+    loadArtworksOnSell = () => {
+        this.userService
+            .getOnSellArtworks(this.props.loggedInUser._id)
+            .then(response => this.setState({ artworksOnSell: response.data }))
+            .catch(err => console.log('Error', {err}))
+    }
+
+    loadSoldArtworks = () => {
+        this.userService
+            .getSoldArtworks(this.props.loggedInUser._id)  
+            .then(response => this.setState({ soldArtworks: response.data }))
             .catch(err => console.log('Error', {err}))
     }
 
     handleModal = (pShowModal, pModalTypes) => 
         this.setState(({ showModal: pShowModal,  RequestedModalType: pModalTypes}))
-    
 
     finishAction = () => {
         this.handleModal(false)
-        this.loadOwnArtworks()
+        this.loadArtworks()
     }
 
     render() {
         return (
             <>
-                <Container className='container user-profile'>
+                <Container fluid className='user-profile'>
                     <main>
                         <section id='user-details'>
-                            <InfoCard loggedInUser={this.props.loggedInUser} />
-                            <button onClick={() => this.handleModal(true, this.ModalTypes.edit )} className='btn btn-dark'>Editar perfil</button>
+                            <div className='container-fluid profile-head'>
+                                <div className='col-8'>
+                                    <InfoCard loggedInUser={this.props.loggedInUser} />
+                                </div>
+                                <div className='col-4 btn-group'>
+                                    <Button onClick={() => this.handleModal(true, this.ModalTypes.edit )} variant="dark" size="md">Editar perfil</Button>
+                                    {this.state.info.role === 'artista' && <Button onClick={() => this.handleModal(true, this.ModalTypes.create)} variant="dark" size="md">Agregar obra</Button>}
+                                </div>
+                            </div>
                         </section>
+                        <hr />
                         <section>
                             <h3>Obras compradas</h3>
-                        </section>
-                        {this.state.role === 'artista' && <section>
-                            <h3>Tus obras</h3>
                             <div className='container-fluid row'>
-                                {this.state.userArtworks.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)}
+                                {this.state.buyedArworks.length > 0 ?
+                                    this.state.buyedArworks.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)
+                                    : <p className='text-muted'>No tienes obras adquiridas...</p>}
                             </div>
-                            <Button onClick={() => this.handleModal(true, this.ModalTypes.create)} style={{ marginBottom: '20px' }} variant="dark" size="md">Agregar obra</Button>
-                        </section>}
+                        </section>
+                        <hr />
+                            {this.state.info.role === 'artista' &&
+                            <>
+                            <section>
+                                <div>
+                                    <h3>Tus obras en venta</h3>
+                                    <div className='container-fluid row'>
+                                        {this.state.artworksOnSell.length > 0 ?
+                                            this.state.artworksOnSell.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)
+                                            : <p className='text-muted'>No tienes obras en venta...</p>}
+                                    </div> 
+                                </div>
+                            </section>
+                            <hr />
+                            <section>
+                                <div>
+                                    <h3>Tus obras vendidas</h3>
+                                    <div className='container-fluid row'>
+                                        {this.state.soldArtworks.length > 0 ?
+                                            this.state.soldArtworks.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)
+                                            : <p className='text-muted'>No tienes obras vendidas...</p>}
+                                    </div> 
+                                </div>
+                            </section>
+                            </>}
                     </main>
                 </Container>
 
@@ -79,7 +150,7 @@ class UserProfile extends Component {
                         <Modal.Title>Edita tu perfil</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <EditUserProfile loggedInUser={this.props.loggedInUser} finishAction={this.finishAction} />
+                        <EditUserProfile loggedInUser={this.props.loggedInUser} loadInfo={this.loadInfo} finishAction={this.finishAction} />
                     </Modal.Body>
                 </Modal> 
 
