@@ -16,53 +16,25 @@ const checkLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : conso
 // Endpoints
 
 // Update profile
-router.put('/editProfile/:user_id', checkLoggedIn, (req, res) => {
+router.put('/editProfile/:user_id', uploader.single('avatar'), checkLoggedIn, (req, res) => {
 
     const user = req.params.user_id
-    const {
-        username,
-        email,
-        password,
-        role
-    } = req.body
+    const { username, email, password, role } = req.body
+    const img = req.file ? req.file.url : req.body.avatar
 
     const salt = bcrypt.genSaltSync(bcryptSalt)
     const hashPass = bcrypt.hashSync(password, salt)
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
-        res.status(400).json({
-            message: 'Specified id is not valid'
-        })
+        res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
-    User.findByIdAndUpdate(user, {
-            username,
-            email,
-            password: hashPass,
-            role
-        })
+    User.findByIdAndUpdate(user, { username, email, password: hashPass, role, avatar: img }, {new: true})
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 
 })
-
-// Upload avatar
-// router.put('editProfileImage/:user_id', uploader.single('avatar'), (req, res) => {
-
-//     const user = req.params.artwork_id
-//     const imageFile = req.file.url
-
-//     if (!mongoose.Types.ObjectId.isValid(user)) {
-//         res.status(400).json({ message: 'Specified id is not valid' })
-//         return
-//     }
-
-//     Artworks.findByIdAndUpdate(user, { avatar: imageFile })
-//         .then(response => res.json(response))
-//         .catch(err => res.status(500).json(err))
-
-// })
 
 // Get all user artworks 
 router.get('/allUserArtworks/:user_id', checkLoggedIn, (req, res) => {
@@ -196,11 +168,13 @@ router.put('/cart/:user_id/:artwork_id', checkLoggedIn, (req, res) => {
 })
 
 // Delete item to user cart
-router.put('/cart/:artwork_id:artwork_id', checkLoggedIn, (req, res) => {
+router.put('/cart/:user._id:artwork_id', checkLoggedIn, (req, res) => {
 
     const user = req.params.user._id
     const userCart = req.user.cart
     const cartItem = req.params.artwork_id
+
+    console.log('Carritoo', userCart)
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
         res.status(400).json({ message: 'Specified id is not valid' })

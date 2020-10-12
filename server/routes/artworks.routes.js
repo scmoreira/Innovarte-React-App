@@ -7,6 +7,7 @@ const uploader = require('../configs/cloudinary.config')
 const Artworks = require('../models/artwork.model')
 
 const checkLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : console.log('No autorizado!')
+const checkRole = rolesToCheck => (req, res, next) => req.isAuthenticated() && rolesToCheck.includes(req.user.role) ? next() : console.log('No autorizado!')
 
 // Endpoints
 
@@ -61,7 +62,7 @@ router.get('/getAvailableArtworks', (req, res) => {
 })
 
 // Add an artwork
-router.post('/newArtwork', uploader.single('image'), (req, res) => {
+router.post('/newArtwork', uploader.single('image'), checkLoggedIn, checkRole('artista'), (req, res) => {
 
     const {title, description, price, currency, size, materials, artist, owner, tags } = req.body
     const imageFile = req.file.url
@@ -73,7 +74,26 @@ router.post('/newArtwork', uploader.single('image'), (req, res) => {
 })
 
 // Update an artwork
-router.put('/editArtwork/:artwork_id', checkLoggedIn, (req, res) => {
+router.put('/editArtwork/:artwork_id', uploader.single('image'), checkLoggedIn, checkRole('artista'), (req, res) => {
+
+    const artwork = req.params.artwork_id
+    const { title, description, price, currency, size, materials, artist, owner, tags } = req.body
+    
+    const img = req.file ? req.file.url : req.body.image
+
+    if (!mongoose.Types.ObjectId.isValid(artwork)) {
+        res.status(400).json({ message: 'Specified id is not valid' })
+        return
+    }
+
+    Artworks.findByIdAndUpdate(artwork, { title, description, price, currency, size, materials, artist, owner, tags, image: img }, {new: true})
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+    
+})
+
+// Delete an artwork
+router.delete('/:artwork_id/deleteArtwork', checkLoggedIn, checkRole('artista'), (req, res) => {
 
     const artwork = req.params.artwork_id
 
@@ -81,34 +101,8 @@ router.put('/editArtwork/:artwork_id', checkLoggedIn, (req, res) => {
         res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
-
-    Artworks.findByIdAndUpdate(artwork, req.body)
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
-    
-})
-
-// Upadte artwork image
-// router.put('editArtworkImage/:artwork_id', uploader.single('image'), (req, res) => {
-
-//     const artwork = req.params.artwork_id
-//     const imageFile = req.file.url
-
-//     if (!mongoose.Types.ObjectId.isValid(artwork)) {
-//         res.status(400).json({ message: 'Specified id is not valid' })
-//         return
-//     }
-
-//     Artworks.findByIdAndUpdate(artwork, { image: imageFile })
-//         .then(response => res.json(response))
-//         .catch(err => res.status(500).json(err))
-    
-// })
-
-// Delete an artwork
-router.delete('/:artwork_id/deleteArtwork', checkLoggedIn, (req, res) => {
      
-    Artworks.findByIdAndDelete(req.params.artwork_id)
+    Artworks.findByIdAndDelete(artwork)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
     
