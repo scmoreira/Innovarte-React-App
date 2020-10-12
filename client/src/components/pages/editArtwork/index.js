@@ -16,6 +16,7 @@ class EditArtwork extends Component {
             title: this.props.artwork.title,
             image: this.props.artwork.image,
             description: this.props.artwork.description,
+            image: this.props.artwork.image,
             size: this.props.artwork.size,
             materials: this.props.artwork.materials,
             currency: this.props.artwork.currency,
@@ -33,16 +34,22 @@ class EditArtwork extends Component {
     }
 
     handleChange = e => {
-        const { name, value } = e.target
-        this.setState({ update: { ...this.state.update, [name]: value }})
+        const value = e.target.type === 'file' ? e.target.files[0] : e.target.value 
+        this.setState({ update: { ...this.state.update, [e.target.name]: value } })
     }
 
     handleFormSubmit = e => {
         
         e.preventDefault()
         
+        const uploadData = new FormData()
+
+        Object.keys(this.state.update).forEach(key => {
+            uploadData.append(key, this.state.update[key])
+        })
+
         this.artworksService
-            .updateArtwork(this.props.artwork._id, this.state.update)
+            .updateArtwork(this.props.artwork._id, uploadData)
             .then(() => this.props.finishActions())
             .catch(err => console.log('Error!', { err }))
     }
@@ -75,6 +82,7 @@ class EditArtwork extends Component {
                         </select>
                 </Form.Group>
                 <FormsInputs label='Nombre de artista' type="text" name="artist" value={artist} onChange={this.handleChange} />
+                <FormsInputs label='Imagen' type="file" name="image" onChange={this.handleChange} />
                 <Button onClick={() => this.props.finishActions()} variant="dark">Cancelar</Button>
                 <Button variant="dark" type="submit">Confirmar</Button>
             </Form>

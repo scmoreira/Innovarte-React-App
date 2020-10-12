@@ -38,6 +38,7 @@ class NewArtwork extends Component {
     }
 
     handleFormSubmit = e => {
+        
         e.preventDefault()
 
         const uploadData = new FormData()

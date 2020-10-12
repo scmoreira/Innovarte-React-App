@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import userService from './../../../service/user.service'
+
 import FormsInputs from './../../shared/FormsInputs'
 
 import Container from 'react-bootstrap/Container'
@@ -18,7 +19,7 @@ class EditUserProfile extends Component {
                 username: this.props.loggedInUser.username,
                 password: '',
                 email: this.props.loggedInUser.email,
-                //avatar: this.props.loggedInUser.avatar,
+                avatar: this.props.loggedInUser.avatar,
                 role: this.props.loggedInUser.role
             }
         }
@@ -26,16 +27,22 @@ class EditUserProfile extends Component {
     }
 
     handleChange = e => {
-        const { name, value } = e.target
-        this.setState({ user: {...this.state.user, [name]: value }})
+        const value = e.target.type === 'file' ? e.target.files[0] : e.target.value 
+        this.setState({ user: { ...this.state.user, [e.target.name]: value } })
     }
 
     handleFormSubmit = e => {
 
         e.preventDefault()
 
+        const uploadData = new FormData()
+
+        Object.keys(this.state.user).forEach(key => {
+            uploadData.append(key, this.state.user[key])
+        })
+
         this.userService
-            .updateProfile(this.props.loggedInUser._id, this.state.user)
+            .updateProfile(this.props.loggedInUser._id, uploadData)
             .then(() => {
                 this.props.loadInfo(this.state.user)
                 this.props.finishAction()
@@ -45,7 +52,7 @@ class EditUserProfile extends Component {
 
     render() {
 
-        const { username, email, password, avatar, role } = this.state.user
+        const { username, email, password, role } = this.state.user
         
         return (
             <Container>
@@ -65,6 +72,7 @@ class EditUserProfile extends Component {
                                             <option value='artista'>Artista</option>
                                         </select>
                                 </Form.Group>
+                                <FormsInputs label='Imagen' type="file" name="avatar" onChange={this.handleChange} />
                                 <Button variant='dark' type='submit'>Confirmar</Button>
                             </Form>
                         </Col>
