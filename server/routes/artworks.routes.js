@@ -6,9 +6,11 @@ const uploader = require('../configs/cloudinary.config')
 
 const Artworks = require('../models/artwork.model')
 
+const checkLoggedIn = (req, res, next) => req.isAuthenticated() ? next() : console.log('No autorizado!')
+
 // Endpoints
 
-//List of artworks
+// List of artworks
 router.get('/getAllArtworks', (req, res) => {
 
     Artworks.find()
@@ -17,7 +19,7 @@ router.get('/getAllArtworks', (req, res) => {
     
 })
 
-//Find one artwork
+// Find one artwork
 router.get('/getOneArtwork/:artwork_id', (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(req.params.artwork_id)) {
@@ -31,17 +33,8 @@ router.get('/getOneArtwork/:artwork_id', (req, res) => {
     
 })
 
-//Find the artworks of an user
-router.get('/getArtworksUser/:owner_id', (req, res) => {
-
-  Artworks.find({ owner:  req.params.owner_id })
-      .then(works => { res.json(works) })
-      .catch(err => res.status(500).json(err))
-
-})
-
-//Find the artworks of an artist
-router.get('/getUserArtworks/:artist', (req, res) => {
+// Find the artworks of an artist
+router.get('/getArtistArtworks/:artist', (req, res) => {
 
     Artworks.find({ artist:  req.params.artist })
         .then(works => { res.json(works) })
@@ -49,7 +42,7 @@ router.get('/getUserArtworks/:artist', (req, res) => {
   
   })
 
-//Find artworks by tag
+// Find artworks by tag
 router.get('/getArtworksByTag/:tag', (req, res) => {
 
     Artworks.find({ tags:  req.params.tag })
@@ -58,11 +51,20 @@ router.get('/getArtworksByTag/:tag', (req, res) => {
   
 })
 
-//Add an artwork
+// Find available artworks
+router.get('/getAvailableArtworks', (req, res) => {
+
+    Artworks.find({ available:  true })
+        .then(works => { res.json(works) })
+        .catch(err => res.status(500).json(err))
+  
+})
+
+// Add an artwork
 router.post('/newArtwork', uploader.single('image'), (req, res) => {
 
     const {title, description, price, currency, size, materials, artist, owner, tags } = req.body
-    let imageFile = req.file.url
+    const imageFile = req.file.url
 
     Artworks.create({title, description, price, currency, size, materials, artist, owner, tags, image:imageFile })
         .then(response => res.json(response))
@@ -70,22 +72,41 @@ router.post('/newArtwork', uploader.single('image'), (req, res) => {
     
 })
 
-//Update an artwork
-router.put('/editArtwork/:artwork_id', (req, res) => {
+// Update an artwork
+router.put('/editArtwork/:artwork_id', checkLoggedIn, (req, res) => {
 
-    if (!mongoose.Types.ObjectId.isValid(req.params.artwork_id)) {
+    const artwork = req.params.artwork_id
+
+    if (!mongoose.Types.ObjectId.isValid(artwork)) {
         res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
-    Artworks.findByIdAndUpdate(req.params.artwork_id, req.body)
+    Artworks.findByIdAndUpdate(artwork, req.body)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
     
 })
 
-//Delete an artwork
-router.delete('/:artwork_id/deleteArtwork', (req, res) => {
+// Upadte artwork image
+// router.put('editArtworkImage/:artwork_id', uploader.single('image'), (req, res) => {
+
+//     const artwork = req.params.artwork_id
+//     const imageFile = req.file.url
+
+//     if (!mongoose.Types.ObjectId.isValid(artwork)) {
+//         res.status(400).json({ message: 'Specified id is not valid' })
+//         return
+//     }
+
+//     Artworks.findByIdAndUpdate(artwork, { image: imageFile })
+//         .then(response => res.json(response))
+//         .catch(err => res.status(500).json(err))
+    
+// })
+
+// Delete an artwork
+router.delete('/:artwork_id/deleteArtwork', checkLoggedIn, (req, res) => {
      
     Artworks.findByIdAndDelete(req.params.artwork_id)
         .then(response => res.json(response))

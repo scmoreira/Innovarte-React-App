@@ -38,11 +38,15 @@ const artworkSchema = new Schema({
     },
     artist: {
         type: String,
-        required: true,
+        required: true
     },
     owner: {
         type: String,
         required: true
+    }, 
+    available: {
+        type: Boolean,
+        default: true
     }
 }, {
     timestamps: true

@@ -27,9 +27,15 @@ const userSchema = new Schema({
         enum: ['admin', 'usuario', 'artista'],
         required: true
     },
-    cart: [String],
-    buyed: [String],
-    sold: [String],
+    cart: {
+        type: [String],
+    },
+    buyed: {
+        type: [String],
+    },
+    sold: {
+        type: [String],
+    },
 }, {
     timestamps: true
 })
