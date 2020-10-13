@@ -12,7 +12,6 @@ class UserService {
 
     //Methods
     updateProfile = (id, data) => this.api.put(`/editProfile/${id}`, data)
-    uploadProfileImage = (id, avatar) => this.api.put(`editProfileImage/${id}`, avatar)
 
     getAllArtworks = id => this.api.get(`/allUserArtworks/${id}`)
     getBuyedArtworks = id => this.api.get(`/buyedArtworks/${id}`)
@@ -20,7 +19,8 @@ class UserService {
     getOnSellArtworks = id => this.api.get(`onSellArtworks/${id}`)
 
     getCart = id => this.api.get(`/cart/${id}`)
-    
+    addItemToCart = (userId, artworkId) => this.api.put(`/addToCart/${userId}/${artworkId}`)
+    deleteItemFromCart = (userId, artworkId) => this.api.put(`deleteFromCart/${userId}/${artworkId}`)
 }
 
 export default UserService

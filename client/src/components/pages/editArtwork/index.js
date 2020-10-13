@@ -16,7 +16,6 @@ class EditArtwork extends Component {
             title: this.props.artwork.title,
             image: this.props.artwork.image,
             description: this.props.artwork.description,
-            image: this.props.artwork.image,
             size: this.props.artwork.size,
             materials: this.props.artwork.materials,
             currency: this.props.artwork.currency,

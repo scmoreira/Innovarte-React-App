@@ -8,7 +8,6 @@ import NavbarUser from './NavbarUser'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import Alert from 'react-bootstrap/Alert'
 
 import { AiOutlinePoweroff } from 'react-icons/ai'
 
@@ -43,7 +42,7 @@ class Navigation extends Component {
                         <NavLink to='/#cómo-funciona' className='nav-link'>Cómo funciona</NavLink>
                         <NavLink to='/obras' className='nav-link'>Obras</NavLink>
                         {!this.props.loggedInUser && <NavbarGuest />}
-                        {this.props.loggedInUser && <NavbarUser loggedInUser={this.props.loggedInUser} />}
+                        {this.props.loggedInUser && <NavbarUser loggedInUser={this.props.loggedInUser} cartItems={this.props.cartItems}/>}
                         {this.props.loggedInUser && <NavLink to='/' className='nav-link' onClick={this.logoutUser}><AiOutlinePoweroff alt='Cerrar sesión' className='logo logout' /></NavLink>}
                     </Nav>
                 </Navbar.Collapse>

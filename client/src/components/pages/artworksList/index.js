@@ -55,7 +55,4 @@ class ArtworksList extends Component {
 
 }
 
-
-
-
 export default ArtworksList

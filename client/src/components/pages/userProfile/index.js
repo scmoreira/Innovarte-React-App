@@ -22,12 +22,12 @@ class UserProfile extends Component {
                 username: this.props.loggedInUser.username,
                 email: this.props.loggedInUser.email,
                 role: this.props.loggedInUser.role,
-                password: this.props.loggedInUser.password
+                password: this.props.loggedInUser.password,
+                avatar: this.props.loggedInUser.avatar
             },
-            buyedArworks: [],
+            buyedArtworks: [],
             artworksOnSell: [],
             soldArtworks: [],
-            cart: [],
             showModal: false
         }
         this.userService = new userService()
@@ -44,27 +44,18 @@ class UserProfile extends Component {
         this.loadArtworks()
     }
 
-    // componentDidUpdate = (prevProps, prevState) => {
-    //     if (prevState.info !== this.state.info ) {
-    //         return this.setState({ info: this.state.info })
-    //     }
-    // }
-
-    loadInfo = newInfo => {
-        this.setState({ info: newInfo })
-        //console.log('los datos pasados son ', newInfo, 'y el estado es ', this.state.info)
-    }
+    loadInfo = newInfo => this.setState({ info: newInfo })
 
     loadArtworks = () => {
-        this.loadBuyedArworks()
+        this.loadBuyedArtworks()
         this.loadArtworksOnSell()
         this.loadSoldArtworks()
     }
 
-    loadBuyedArworks = () => {
+    loadBuyedArtworks = () => {
         this.userService
             .getBuyedArtworks(this.props.loggedInUser._id)
-            .then(response => this.setState({ buyedArworks: response.data }))
+            .then(response => this.setState({ buyedArtworks: response.data }))
             .catch(err => console.log('Error', {err}))
     }
 
@@ -85,7 +76,7 @@ class UserProfile extends Component {
     handleModal = (pShowModal, pModalTypes) => 
         this.setState(({ showModal: pShowModal,  RequestedModalType: pModalTypes}))
 
-    finishAction = () => {
+    finishActions = info => {
         this.handleModal(false)
         this.loadArtworks()
     }
@@ -98,7 +89,7 @@ class UserProfile extends Component {
                         <section id='user-details'>
                             <div className='container-fluid profile-head'>
                                 <div className='col-8'>
-                                    <InfoCard loggedInUser={this.props.loggedInUser} />
+                                    <InfoCard loggedInUser={this.props.loggedInUser} userInfo={this.state.info} />
                                 </div>
                                 <div className='col-4 btn-group'>
                                     <Button onClick={() => this.handleModal(true, this.ModalTypes.edit )} variant="dark" size="md">Editar perfil</Button>
@@ -110,8 +101,8 @@ class UserProfile extends Component {
                         <section>
                             <h3>Obras compradas</h3>
                             <div className='container-fluid row'>
-                                {this.state.buyedArworks.length > 0 ?
-                                    this.state.buyedArworks.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)
+                                {this.state.buyedArtworks.length > 0 ?
+                                    this.state.buyedArtworks.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)
                                     : <p className='text-muted'>No tienes obras adquiridas...</p>}
                             </div>
                         </section>
@@ -150,7 +141,7 @@ class UserProfile extends Component {
                         <Modal.Title>Edita tu perfil</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <EditUserProfile loggedInUser={this.props.loggedInUser} loadInfo={this.loadInfo} finishAction={this.finishAction} />
+                        <EditUserProfile loggedInUser={this.props.loggedInUser} loadInfo={this.loadInfo} finishActions={this.finishActions} />
                     </Modal.Body>
                 </Modal> 
 

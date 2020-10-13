@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import artworkService from '../../../service/artworks.service'
+import userService from './../../../service/user.service'
 
 import { CgShoppingCart } from 'react-icons/cg'
 
@@ -18,12 +19,13 @@ class ArtworkDetails extends Component {
         this.state = {
             artwork: {},
             showModal: false,
-            showAlert: false,
-            addToCart: []
+            showAlert: false
        }
 
         this.loggedInUser = props.loggedInUser
+
         this.artworkService = new artworkService()
+        this.userService = new userService()
     }
 
     componentDidMount = () => this.loadArtwork()
@@ -53,13 +55,17 @@ class ArtworkDetails extends Component {
             .catch(err => console.log('Error ', {err}))
     }
 
-    handleAddToCart = e => {
-
-        e.preventDefault()
-
-        console.log(this.loggedInUser.cart)
+    handleToCart = () => {
         
-      //this.props.addToCart(this.state.artwork._id, this.loggedInUser._id)
+        this.userService
+            .addItemToCart(this.loggedInUser._id, this.state.artwork._id)
+            .then(() => {
+                this.props.setCart(this.loggedInUser)
+                this.props.fetchUser()
+            }
+            )
+            .catch(err => console.log(err))
+
     }
 
     showBuyButton = () => {
@@ -78,8 +84,17 @@ class ArtworkDetails extends Component {
         }
     }
 
-    goBack = () => this.props.history.goBack()
-
+    goBack = () => {
+        if (this.loggedInUser && this.loggedInUser._id === this.state.artwork.owner) {
+            this.props.history.push('/perfil')                // Investigar otro modo de volver hacia atrás, cuando son componentes reusables
+            return                                            // y tiene que volver a la página desde donde se ha dirigido a ese componente. 
+        } else {
+            this.props.history.push('/obras')
+            return
+        }                                      
+    
+    }                                           
+    
     render() {
         return (
             <section className='container-details'>
@@ -99,8 +114,8 @@ class ArtworkDetails extends Component {
 
                                 {this.showBuyButton() &&
                                     <>
-                                    <Link to='/carrito'><button onClick={this.handleAddToCart} className='btn btn-dark'>Comprar</button></Link>
-                                    <button className='btn btn-dark' onClick={this.handleAddToCart}><CgShoppingCart className='add-to-cart'/></button> 
+                                    <Link to='/carrito' ><button onClick={this.handleToCart} className='btn btn-dark'>Comprar</button></Link>
+                                    <button className='btn btn-dark' onClick={this.handleToCart}><CgShoppingCart className='add-to-cart'/></button> 
                                     </>
                                 } 
                                 
@@ -112,6 +127,7 @@ class ArtworkDetails extends Component {
                                     </>
                                 }
                                 <button onClick={this.goBack} className='btn btn-dark'>Atrás</button>
+                                {!this.loggedInUser && <p>Regístrate para comprar! <Link to='/signup'>Registro</Link></p>}
                             </div>
                         </div>
                     </div>

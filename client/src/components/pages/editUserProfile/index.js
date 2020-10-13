@@ -17,7 +17,7 @@ class EditUserProfile extends Component {
         this.state = {
             user: {
                 username: this.props.loggedInUser.username,
-                password: '',
+                password: this.props.loggedInUser.password,
                 email: this.props.loggedInUser.email,
                 avatar: this.props.loggedInUser.avatar,
                 role: this.props.loggedInUser.role
@@ -45,14 +45,14 @@ class EditUserProfile extends Component {
             .updateProfile(this.props.loggedInUser._id, uploadData)
             .then(() => {
                 this.props.loadInfo(this.state.user)
-                this.props.finishAction()
+                this.props.finishActions(this.state.user)
             })   
             .catch(err => console.log('Error!', { err }))
     }
 
     render() {
 
-        const { username, email, password, role } = this.state.user
+        const { username, email, role } = this.state.user
         
         return (
             <Container>
@@ -63,9 +63,8 @@ class EditUserProfile extends Component {
                             <Form onSubmit={this.handleFormSubmit}>
                                 <FormsInputs label='Nombre de usuario' type='text' name='username' value={username} onChange={this.handleChange} />
                                 <FormsInputs label='Email' type='email' name='email' value={email} onChange={this.handleChange} />
-                                <FormsInputs label='Contraseña' type='password' name='password' placeholder='*****' value={password} onChange={this.handleChange} />
                                 <Form.Group>
-                                    <Form.Label>Tipo de obra de arte</Form.Label>
+                                    <Form.Label>Eres: </Form.Label>
                                         <select name='role' value={role} onChange={this.handleChange}>
                                             <option>Selecciona</option>
                                             <option value='usuario'>Usuario</option>
@@ -73,6 +72,7 @@ class EditUserProfile extends Component {
                                         </select>
                                 </Form.Group>
                                 <FormsInputs label='Imagen' type="file" name="avatar" onChange={this.handleChange} />
+                                <Button variant='dark' type='submit' onClick={() => this.props.finishActions()}>Cancelar</Button>
                                 <Button variant='dark' type='submit'>Confirmar</Button>
                             </Form>
                         </Col>
