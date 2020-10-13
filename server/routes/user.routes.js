@@ -22,15 +22,12 @@ router.put('/editProfile/:user_id', uploader.single('avatar'), checkLoggedIn, (r
     const { username, email, password, role } = req.body
     const img = req.file ? req.file.url : req.body.avatar
 
-    const salt = bcrypt.genSaltSync(bcryptSalt)
-    const hashPass = bcrypt.hashSync(password, salt)
-
     if (!mongoose.Types.ObjectId.isValid(user)) {
         res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
-    User.findByIdAndUpdate(user, { username, email, password: hashPass, role, avatar: img }, {new: true})
+    User.findByIdAndUpdate(user, { username, email, password, role, avatar: img }, {new: true})
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 
@@ -42,15 +39,11 @@ router.get('/allUserArtworks/:user_id', checkLoggedIn, (req, res) => {
     const user = req.params.user_id
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
-        res.status(400).json({
-            message: 'Specified id is not valid'
-        })
+        res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
-    Artworks.find({
-            owner: user
-        })
+    Artworks.find({ owner: user })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 
@@ -62,18 +55,12 @@ router.get('/buyedArtworks/:user_id', checkLoggedIn, (req, res) => {
     const user = req.params.user_id
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
-        res.status(400).json({
-            message: 'Specified id is not valid'
-        })
+        res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
-    User.findById(user, {
-            buyed: 1
-        })
-        .then(response => Artworks.find({
-            _id: response
-        }))
+    User.findById(user, { buyed: 1 })
+        .then(response => Artworks.find({ _id: response }))
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 
@@ -85,16 +72,11 @@ router.get('/onSellArtworks/:user_id', checkLoggedIn, (req, res) => {
     const user = req.params.user_id
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
-        res.status(400).json({
-            message: 'Specified id is not valid'
-        })
+        res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
-    Artworks.find({
-            owner: user,
-            available: true
-        })
+    Artworks.find({ owner: user, available: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 
@@ -106,16 +88,11 @@ router.get('/soldArtworks/:user_id', checkLoggedIn, (req, res) => {
     const user = req.params.user_id
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
-        res.status(400).json({
-            message: 'Specified id is not valid'
-        })
+        res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
-    Artworks.find({
-            owner: user,
-            available: false
-        })
+    Artworks.find({ owner: user, available: false })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 
@@ -127,72 +104,61 @@ router.get('/cart/:user_id', checkLoggedIn, (req, res) => {
     const user = req.params.user_id
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
-        res.status(400).json({
-            message: 'Specified id is not valid'
-        })
+        res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
-    User.findById(user, {
-            cart: 1
-        })
+    User.findById(user, { cart: 1 })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 
 })
 
 // Add item to user cart
-router.put('/cart/:user_id/:artwork_id', checkLoggedIn, (req, res) => {
+router.put('/addToCart/:user_id/:artwork_id', checkLoggedIn, (req, res) => {
 
     const user = req.params.user_id
     const userCart = req.user.cart
     const cartItem = req.params.artwork_id
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
-        res.status(400).json({
-            message: 'Specified id is not valid'
-        })
+        res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
     if (!userCart.includes(cartItem)) {
-    userCart.push(cartItem)
 
-        User.findByIdAndUpdate(user, { cart: userCart })
+        User.findByIdAndUpdate(user, { $addToSet: { cart: cartItem }}, {new: true})
             .then(response => res.json(response))
             .catch(err => res.status(500).json(err))
 
     } else {
-        console.log('Item ya agregado')
+        res.status(400).json({ message: 'Item already added' })
+        return
     }
 })
 
 // Delete item to user cart
-router.put('/cart/:user._id:artwork_id', checkLoggedIn, (req, res) => {
+router.put('/deleteFromCart/:user_id/:artwork_id', checkLoggedIn, (req, res) => {
 
-    const user = req.params.user._id
+    const user = req.params.user_id
     const userCart = req.user.cart
     const cartItem = req.params.artwork_id
-
-    console.log('Carritoo', userCart)
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
         res.status(400).json({ message: 'Specified id is not valid' })
         return
     }
 
-    if (user.includes(cartItem)) {
-
-        let itemIndex = userCart.indexOf(cartItem)
-
-        userCart.splice(itemIndex, 1)
-
-        User.findByIdAndUpdate(user, { $pop: {cart: userCart} })
+    if (userCart.includes(cartItem)) {
+        
+        User.findByIdAndUpdate(user, { $pull: {cart: cartItem} }, {new: true})
             .then(response => res.json(response))
             .catch(err => res.status(500).json(err))
 
     } else {
-        console.log('Item no encontrado')
+        res.status(400).json({ message: 'Item not found' })
+        return
     } 
 })
 
