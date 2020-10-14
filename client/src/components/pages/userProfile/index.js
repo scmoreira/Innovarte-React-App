@@ -62,7 +62,7 @@ class UserProfile extends Component {
         this.state.info.buyed.forEach(item => {
             this.artworksService
                 .getOneArtwork(item)
-                .then(response => { buyedArtworksCopy.push(response.data)})
+                .then(response => buyedArtworksCopy.push(response.data))
                 .then(() => this.setState({ buyedArtworks: buyedArtworksCopy }))
                 .catch(err => console.log({ err }))
         })
@@ -98,7 +98,7 @@ class UserProfile extends Component {
                         <section id='user-details'>
                             <div className='container-fluid profile-head'>
                                 <div className='col-8'>
-                                    <InfoCard loggedInUser={this.props.loggedInUser} userInfo={this.props.loggedInUser} />
+                                    <InfoCard userInfo={this.props.loggedInUser} />
                                 </div>
                                 <div className='col-4 btn-group'>
                                     <Button onClick={() => this.handleModal(true, this.ModalTypes.edit )} variant="dark" size="md">Editar perfil</Button>
@@ -150,7 +150,7 @@ class UserProfile extends Component {
                         <Modal.Title>Edita tu perfil</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <EditUserProfile loggedInUser={this.props.loggedInUser} loadInfo={this.loadInfo} finishActions={this.finishActions}  />
+                        <EditUserProfile loggedInUser={this.props.loggedInUser} setTheUser={this.props.setTheUser} loadInfo={this.loadInfo} finishActions={this.finishActions} handleModal={this.handleModal} />
                     </Modal.Body>
                 </Modal> 
 
@@ -159,7 +159,7 @@ class UserProfile extends Component {
                         <Modal.Title>Añade tu obra</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <NewArtwork loggedInUser={this.props.loggedInUser} finishActions={this.finishActions} />
+                        <NewArtwork loggedInUser={this.props.loggedInUser} finishActions={this.finishActions} handleModal={this.handleModal}/>
                     </Modal.Body>
                 </Modal>
             </>

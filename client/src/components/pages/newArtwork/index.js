@@ -80,7 +80,7 @@ class NewArtwork extends Component {
                         </select>
                 </Form.Group>
                 <FormsInputs label='Imagen' type='file' name='image' onChange={this.handleInputChange} />
-                <Button onClick={() => this.props.finishAction()} variant="dark">Cancelar</Button>
+                <Button onClick={() => this.props.handleModal(false)} variant="dark">Cancelar</Button>
                 <Button variant="dark" type="submit">Confirmar</Button>
             </Form>
         )

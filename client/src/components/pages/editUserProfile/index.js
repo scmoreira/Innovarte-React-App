@@ -44,12 +44,11 @@ class EditUserProfile extends Component {
         this.userService
             .updateProfile(this.props.loggedInUser._id, uploadData)
             .then(response => {
-                //this.props.setTheUser(response.data)
+                this.props.setTheUser(response.data)
                 this.props.loadInfo(this.state.user)
                 this.props.finishActions()
             }) 
             .catch(err => console.log('Error!', { err }))
-            //this.props.fetchUser()
     }
 
     render() {
@@ -74,7 +73,7 @@ class EditUserProfile extends Component {
                                         </select>
                                 </Form.Group>
                                 <FormsInputs label='Agrega una imagen de perfil' type="file" name="avatar" onChange={this.handleChange} />
-                                <Button variant='dark' type='submit' onClick={() => this.props.finishActions()}>Cancelar</Button>
+                                <Button variant='dark' type='submit' onClick={() => this.props.handleModal(false)}>Cancelar</Button>
                                 <Button variant='dark' type='submit'>Confirmar</Button>
                             </Form>
                         </Col>

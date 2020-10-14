@@ -91,7 +91,6 @@ class Cart extends Component {
     }
 
     addBuyedArtworks = () => {
-        console.log('Antes de comprar', this.state.user)
         this.props.loggedInUser.cart.forEach(item => {
             this.userService
                 .updateBuyedArtworks(this.state.user._id, item)
@@ -99,7 +98,7 @@ class Cart extends Component {
                     this.props.setTheUser(response.data)
                     this.props.fetchUser()
                     this.resetCart()
-                                   })
+                })
                 .catch(err => console.log(err))
         })
     }
