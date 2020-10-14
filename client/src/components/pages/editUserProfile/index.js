@@ -43,15 +43,17 @@ class EditUserProfile extends Component {
 
         this.userService
             .updateProfile(this.props.loggedInUser._id, uploadData)
-            .then(() => {
+            .then(response => {
+                //this.props.setTheUser(response.data)
                 this.props.loadInfo(this.state.user)
                 this.props.finishActions(this.state.user)
-            })   
+            }) 
             .catch(err => console.log('Error!', { err }))
+            //this.props.fetchUser()
     }
 
     render() {
-
+        console.log('LoggedInUser' ,this.props.loggedInUser )
         const { username, email, role } = this.state.user
         
         return (

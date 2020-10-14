@@ -78,7 +78,7 @@ class Cart extends Component {
     onClickConfirmPayment = () => {
         this.changeArtworkState()
         this.addBuyedArtworks()
-    
+        this.props.history.push('/perfil')
     }
 
     changeArtworkState = () => {
@@ -91,15 +91,23 @@ class Cart extends Component {
     }
 
     addBuyedArtworks = () => {
-        this.state.cartItemsId.forEach(item => {
+        console.log('Antes de comprar', this.state.user)
+        this.props.loggedInUser.cart.forEach(item => {
             this.userService
                 .updateBuyedArtworks(this.state.user._id, item)
-                .then(response => console.log('updateBuyedArtworks', response.data))
+                .then(response => {
+                    this.props.setTheUser(response.data)
+                    this.props.fetchUser()
+                    this.resetCart()
+                                   })
                 .catch(err => console.log(err))
         })
     }
 
     render() {
+
+        console.log('después de comprar', this.state.user)
+        console.log('después de comprar', this.props.fetchUser)
 
         return (
             <>

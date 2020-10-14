@@ -32,13 +32,6 @@ class App extends Component {
 
   componentDidMount = () => { this.fetchUser() }
 
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   if (prevState.loggedInUser !== this.state.loggedInUser) {
-  //     console.log('Entró a update')
-  //     //this.fetchUser()
-  //   }
-  // }
-
   setTheUser = user => this.setState({loggedInUser: user})
 
   fetchUser = () => {
@@ -73,7 +66,7 @@ class App extends Component {
 
           <Route path='/obras' exact render={() => <ArtworksList />} />
           <Route path='/obras/detalles/:obra_id' render={props => <ArtworkDetails loggedInUser={this.state.loggedInUser} fetchUser={this.fetchUser} {...props} />} />
-          <Route path='/perfil' render={() => this.state.loggedInUser ? <UserProfile loggedInUser={this.state.loggedInUser} fetchUser={this.fetchUser} /> : <Redirect to='/login' /> } />
+          <Route path='/perfil' render={() => this.state.loggedInUser ? <UserProfile loggedInUser={this.state.loggedInUser}  setTheUser={this.setTheUser} fetchUser={this.fetchUser} /> : <Redirect to='/login' /> } />
           <Route path='/carrito' render={props => this.state.loggedInUser ? <Cart loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} fetchUser={this.fetchUser} {...props} /> : <Redirect to='/login' />} />
         </Switch>
         <Footer />
