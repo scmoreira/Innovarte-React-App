@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import artworksService from '../../../service/artworks.service'
 import userService from '../../../service/user.service'
 
+import Payment from '../../pages/payment'
+import ItemCard from './ItemCard'
+
 import { MdEuroSymbol } from 'react-icons/md'
-import { AiOutlineDelete } from 'react-icons/ai'
 
 import './Cart.css'
 
@@ -27,7 +30,7 @@ class Cart extends Component {
     componentDidMount = () => this.loadCart()
 
     loadCart = () => {
-        this.ResetCart()
+        this.resetCart()
         this.printCartItems()
     }
 
@@ -49,47 +52,81 @@ class Cart extends Component {
         })
     }
 
-    handleOnClick = e => {
-        
+    updateProperties = () => {
+        this.setState({ user: this.props.loggedInUser })
+        this.setState({ cartItemsId: this.props.loggedInUser.cart })
+    }
+
+    resetCart = () => {
+        this.setState({ cartItemsInfo: [] })
+        this.setState({ totalPrice: 0 })
+    }
+
+    handleDelete = (itemId) => {
         this.userService
-            .deleteItemFromCart(this.state.user._id, e.target.id)
+            .deleteItemFromCart(this.state.user._id, itemId)
             .then((response) =>
             {
                 this.props.setTheUser(response.data)
                 this.props.fetchUser()
-                this.UpdateProperties()
+                this.updateProperties()
                 this.loadCart()
             })
             .catch(err => console.log(err))
     }
 
-    UpdateProperties()
-    {
-        this.setState({ user: this.props.loggedInUser })
-        this.setState({ cartItemsId: this.props.loggedInUser.cart })
+    onClickConfirmPayment = () => {
+        this.changeArtworkState()
+        this.addBuyedArtworks()
+    
     }
 
-    ResetCart()
-    {
-        this.setState({ cartItemsInfo: [] })
-        this.setState({ totalPrice: 0 })
+    changeArtworkState = () => {
+        this.state.cartItemsId.forEach(item => {
+            this.artworksService
+                .updateArtworkState(item)
+                .then(response => console.log('updateArtworkState', response.data))
+                .catch(err => console.log(err))
+        })
+    }
+
+    addBuyedArtworks = () => {
+        this.state.cartItemsId.forEach(item => {
+            this.userService
+                .updateBuyedArtworks(this.state.user._id, item)
+                .then(response => console.log('updateBuyedArtworks', response.data))
+                .catch(err => console.log(err))
+        })
     }
 
     render() {
 
         return (
             <>
-                <h1>Carrito</h1>
-                <section>
-                    <ul >
-                    {this.state.cartItemsInfo.map((item, index) => 
-                        
-                        <li key={index}>{item.title} | {item.price} {item.currency} | <AiOutlineDelete id={item._id} onClick={this.handleOnClick}><button  /></AiOutlineDelete> </li>
-                       
-                    )}
-                    </ul>
-                    <h5>Total: {this.state.totalPrice} <MdEuroSymbol /></h5>
+            <main id='cart'>
+                <section className='container-fluid'>
+                    <h1>Hola {this.state.user.username} </h1>
+                    {this.state.cartItemsInfo.length === 0 && <h3>Tu cesta está vacía! <Link to='/obras'>Comprar</Link></h3>}
                 </section>
+
+                <section className='row cart-body'> 
+                    <div className='col-md-7'>
+                        <Payment />
+                    </div>
+                    <div className='col-md-5 items'>
+                        <ul >
+                            {this.state.cartItemsInfo.map(item => 
+                                <ItemCard key={item._id} item={{...item}} handleDelete={this.handleDelete} />
+                            )}
+                            <div className='payconfirm'>
+                                <h5>Total a pagar: {this.state.totalPrice} <MdEuroSymbol /></h5>
+                                <button onClick={this.onClickConfirmPayment} className='btn btn-dark'>Confirmar pago</button>
+                            </div>
+                        </ul>
+                        
+                    </div>
+                 </section>
+             </main>
             </>
         )
     }

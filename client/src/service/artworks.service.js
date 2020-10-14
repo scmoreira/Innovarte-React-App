@@ -20,6 +20,7 @@ class ArtworkService {
     
     createArtwork = artwork => this.api.post('/newArtwork', artwork)
     updateArtwork = (id, artwork) => this.api.put(`/editArtwork/${id}`, artwork)
+    updateArtworkState = id => this.api.put(`/artworkSold/${id}`)
     deleteArtwork = (id) => this.api.delete(`/${id}/deleteArtwork`)
 }
 

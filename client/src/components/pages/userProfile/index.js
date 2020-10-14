@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import userService from './../../../service/user.service'
+import artworksService from '../../../service/artworks.service'
 
 import InfoCard from './InfoCard'
 import EditUserProfile from '../editUserProfile'
@@ -23,7 +24,8 @@ class UserProfile extends Component {
                 email: this.props.loggedInUser.email,
                 role: this.props.loggedInUser.role,
                 password: this.props.loggedInUser.password,
-                avatar: this.props.loggedInUser.avatar
+                avatar: this.props.loggedInUser.avatar,
+                buyed: this.props.loggedInUser.buyed
             },
             buyedArtworks: [],
             artworksOnSell: [],
@@ -31,6 +33,7 @@ class UserProfile extends Component {
             showModal: false
         }
         this.userService = new userService()
+        this.artworksService = new artworksService()
         
         this.RequestedModalType = undefined
 
@@ -53,10 +56,16 @@ class UserProfile extends Component {
     }
 
     loadBuyedArtworks = () => {
-        this.userService
-            .getBuyedArtworks(this.props.loggedInUser._id)
-            .then(response => this.setState({ buyedArtworks: response.data }))
-            .catch(err => console.log('Error', {err}))
+
+        let buyedArtworksCopy = [...this.state.buyedArtworks]
+
+        this.state.info.buyed.forEach(item => {
+            this.artworksService
+                .getOneArtwork(item)
+                .then(response => { buyedArtworksCopy.push(response.data)})
+                .then(() => this.setState({ buyedArtworks: buyedArtworksCopy }))
+                .catch(err => console.log({ err }))
+        })
     }
 
     loadArtworksOnSell = () => {

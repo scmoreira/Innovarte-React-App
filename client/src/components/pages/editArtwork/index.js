@@ -22,7 +22,7 @@ class EditArtwork extends Component {
             price: this.props.artwork.price,
             tags: this.props.artwork.tags,
             artist: this.props.artwork.artist,
-            owner: this.props.loggedInUser._id
+            owner: this.props.loggedInUser._id,
             }
         }
 

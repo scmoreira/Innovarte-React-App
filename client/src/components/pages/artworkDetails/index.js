@@ -56,14 +56,10 @@ class ArtworkDetails extends Component {
     }
 
     handleToCart = () => {
-        
+
         this.userService
             .addItemToCart(this.loggedInUser._id, this.state.artwork._id)
-            .then(() => {
-                this.props.setCart(this.loggedInUser)
-                this.props.fetchUser()
-            }
-            )
+            .then(() => this.props.fetchUser())
             .catch(err => console.log(err))
 
     }
@@ -112,11 +108,8 @@ class ArtworkDetails extends Component {
                                 Medidas: {this.state.artwork.size} cm.</small></p>
                                 <p>Precio: {this.state.artwork.price} {this.state.artwork.currency}</p>
 
-                                {this.showBuyButton() &&
-                                    <>
-                                    <Link to='/carrito' ><button onClick={this.handleToCart} className='btn btn-dark'>Comprar</button></Link>
-                                    <button className='btn btn-dark' onClick={this.handleToCart}><CgShoppingCart className='add-to-cart'/></button> 
-                                    </>
+                                {this.showBuyButton() && <button className='btn btn-dark' onClick={this.handleToCart}>
+                                    <CgShoppingCart className='add-to-cart' /></button> 
                                 } 
                                 
                                 {this.showUserButtons() &&
@@ -127,6 +120,7 @@ class ArtworkDetails extends Component {
                                     </>
                                 }
                                 <button onClick={this.goBack} className='btn btn-dark'>Atrás</button>
+                                {this.showBuyButton() && <Link to='/carrito'><p>Tramitar compra</p></Link>}
                                 {!this.loggedInUser && <p>Regístrate para comprar! <Link to='/signup'>Registro</Link></p>}
                             </div>
                         </div>

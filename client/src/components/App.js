@@ -30,52 +30,38 @@ class App extends Component {
     
   }
 
-  componentDidMount = () => { 
-    this.fetchUser() }
+  componentDidMount = () => { this.fetchUser() }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevState.loggedInUser !== this.state.loggedInUser) {
-      console.log('Entró a update')
-      //this.fetchUser()
-    }
-  }
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   if (prevState.loggedInUser !== this.state.loggedInUser) {
+  //     console.log('Entró a update')
+  //     //this.fetchUser()
+  //   }
+  // }
 
   setTheUser = user => this.setState({loggedInUser: user})
 
   fetchUser = () => {
 
-    // if(this.state.loggedInUser == null) {
     this.authService
       .isLoggedIn()
       .then(response => {
-        console.log('Response.data' ,response.data)
         this.setState({ loggedInUser: response.data, cartItems: response.data.cart.length })
         this.setNumOfItems()
       })
       .catch(err => this.setState({ loggedInUser: null }))
-  }//}
-
-  setCart = user => {
-    if (user) {
-        this.setState({ loggedInUser: user })
-    }   
   }
-     
+
   setNumOfItems = () => {
       
     if (this.state.loggedInUser) {
-        console.log('Entro')
-          this.setState({ cartItems: this.state.loggedInUser.cart.length })
-      } else {
-          this.setState({ cartItems: this.state.cartItems })
-      } 
-  } 
+      this.setState({ cartItems: this.state.loggedInUser.cart.length })
+    }
+
+  }
   
   render() {
-    console.log('Cartitems de App', this.state.cartItems)
-    console.log('LoggedInUser de App', this.state.loggedInUser)
-    //this.fetchUser()
-
+    
     return (
       <>
         <Navigation setTheUser={this.setTheUser} cartItems={this.state.cartItems} loggedInUser={this.state.loggedInUser} />
@@ -86,8 +72,8 @@ class App extends Component {
           <Route path='/login' render={props => <AuthForms setTheUser={this.setTheUser} {...props} />} /> 
 
           <Route path='/obras' exact render={() => <ArtworksList />} />
-          <Route path='/obras/detalles/:obra_id' render={props => <ArtworkDetails loggedInUser={this.state.loggedInUser} setCart={this.setCart} fetchUser={this.fetchUser} {...props} />} />
-          <Route path='/perfil' render={() => this.state.loggedInUser ? <UserProfile loggedInUser={this.state.loggedInUser}  /> : <Redirect to='/login' /> } />
+          <Route path='/obras/detalles/:obra_id' render={props => <ArtworkDetails loggedInUser={this.state.loggedInUser} fetchUser={this.fetchUser} {...props} />} />
+          <Route path='/perfil' render={() => this.state.loggedInUser ? <UserProfile loggedInUser={this.state.loggedInUser} fetchUser={this.fetchUser} /> : <Redirect to='/login' /> } />
           <Route path='/carrito' render={props => this.state.loggedInUser ? <Cart loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} fetchUser={this.fetchUser} {...props} /> : <Redirect to='/login' />} />
         </Switch>
         <Footer />

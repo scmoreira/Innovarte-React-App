@@ -21,6 +21,7 @@ class UserService {
     getCart = id => this.api.get(`/cart/${id}`)
     addItemToCart = (userId, artworkId) => this.api.put(`/addToCart/${userId}/${artworkId}`)
     deleteItemFromCart = (userId, artworkId) => this.api.put(`deleteFromCart/${userId}/${artworkId}`)
+    updateBuyedArtworks = (userId, artworkId) => this.api.put(`/updateBuyedArtworks/${userId}/${artworkId}`)
 }
 
 export default UserService
