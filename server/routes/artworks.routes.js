@@ -92,6 +92,22 @@ router.put('/editArtwork/:artwork_id', uploader.single('image'), checkLoggedIn, 
     
 })
 
+// Update artwork state (if sold)
+router.put('/artworkSold/:artwork_id', (req, res) => {
+
+    const artwork = req.params.artwork_id
+
+    if (!mongoose.Types.ObjectId.isValid(artwork)) {
+        res.status(400).json({ message: 'Specified id is not valid' })
+        return
+    }
+
+    Artworks.findByIdAndUpdate(artwork, { $set: { available: false } }, { new: true })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+    
+})
+
 // Delete an artwork
 router.delete('/:artwork_id/deleteArtwork', checkLoggedIn, checkRole('artista'), (req, res) => {
 

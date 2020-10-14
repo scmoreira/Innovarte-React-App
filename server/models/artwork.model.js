@@ -21,7 +21,8 @@ const artworkSchema = new Schema({
     },
     materials: {
         type: String,
-        lowercase: true
+        lowercase: true,
+        required: true
     },
     currency: {
         type: String,

@@ -66,6 +66,23 @@ router.get('/buyedArtworks/:user_id', checkLoggedIn, (req, res) => {
 
 })
 
+// Update buyed artworks
+router.put('/updateBuyedArtworks/:user_id/:artwork_id', checkLoggedIn, (req, res) => {
+
+    const user = req.params.user_id
+    const artwork = req.params.artwork_id
+
+    if (!mongoose.Types.ObjectId.isValid(user)) {
+        res.status(400).json({ message: 'Specified id is not valid' })
+        return
+    }
+
+    User.findByIdAndUpdate(user, {$push: {buyed: artwork}}, {new: true})
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+
+})
+
 // Get available artworks to sell (only artists)
 router.get('/onSellArtworks/:user_id', checkLoggedIn, (req, res) => {
 
