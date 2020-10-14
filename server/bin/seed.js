@@ -56,15 +56,33 @@ const artworks = [
         tags: 'Escultura',
         artist: 'Rodin',
         owner: '5f80296e033ae173994875e1'
+    },
+    {
+        title: 'Vasija de portlan',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Portland_Vase_BM_Gem4036_n5.jpg/800px-Portland_Vase_BM_Gem4036_n5.jpg',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet est diam. Nullam eleifend suscipit dictum.',
+        size: '20x17.7',
+        materials: 'cristal azul',
+        currency: 'EUR',
+        price: 2000000,
+        tags: 'Artesanía',
+        artist: 'Desconocido',
+        owner: '5f80296e033ae173994875e1'
     }
 ]
-
+https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Portland_Vase_BM_Gem4036_n5.jpg/800px-Portland_Vase_BM_Gem4036_n5.jpg
 const users = [
     {
         username: 'cecilia',
         password: 'cecilia',
         email: 'cecilia@email.com',
         role: 'admin'
+    },
+    {
+        username: 'artista',
+        password: 'artista',
+        email: 'artista@email.com',
+        role: 'artista'
     }
 ]
 
