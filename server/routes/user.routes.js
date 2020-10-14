@@ -71,6 +71,7 @@ router.put('/updateBuyedArtworks/:user_id/:artwork_id', checkLoggedIn, (req, res
 
     const user = req.params.user_id
     const artwork = req.params.artwork_id
+    const removeItems = []
 
     if (!mongoose.Types.ObjectId.isValid(user)) {
         res.status(400).json({ message: 'Specified id is not valid' })
@@ -80,6 +81,10 @@ router.put('/updateBuyedArtworks/:user_id/:artwork_id', checkLoggedIn, (req, res
     User.findByIdAndUpdate(user, {$push: {buyed: artwork}}, {new: true})
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
+    
+    User.findByIdAndUpdate(user,  { cart: removeItems }, {new: true})
+    .then(response => res.json(response))
+    .catch(err => res.status(500).json(err))
 
 })
 
