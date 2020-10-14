@@ -85,7 +85,7 @@ class UserProfile extends Component {
     handleModal = (pShowModal, pModalTypes) => 
         this.setState(({ showModal: pShowModal,  RequestedModalType: pModalTypes}))
 
-    finishActions = info => {
+    finishActions = () => {
         this.handleModal(false)
         this.loadArtworks()
     }
@@ -159,7 +159,7 @@ class UserProfile extends Component {
                         <Modal.Title>Añade tu obra</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <NewArtwork loggedInUser={this.props.loggedInUser} finishAction={this.finishAction} />
+                        <NewArtwork loggedInUser={this.props.loggedInUser} finishActions={this.finishActions} />
                     </Modal.Body>
                 </Modal>
             </>

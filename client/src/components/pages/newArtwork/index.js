@@ -49,7 +49,7 @@ class NewArtwork extends Component {
 
         this.artworksService
             .createArtwork(uploadData)
-            .then(() => this.props.finishAction())
+            .then(() => this.props.finishActions())
             .catch(err => console.log('Error!', { err }))
     }
 

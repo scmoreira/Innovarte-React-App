@@ -46,7 +46,7 @@ class EditUserProfile extends Component {
             .then(response => {
                 //this.props.setTheUser(response.data)
                 this.props.loadInfo(this.state.user)
-                this.props.finishActions(this.state.user)
+                this.props.finishActions()
             }) 
             .catch(err => console.log('Error!', { err }))
             //this.props.fetchUser()
@@ -73,7 +73,7 @@ class EditUserProfile extends Component {
                                             <option value='artista'>Artista</option>
                                         </select>
                                 </Form.Group>
-                                <FormsInputs label='Imagen' type="file" name="avatar" onChange={this.handleChange} />
+                                <FormsInputs label='Agrega una imagen de perfil' type="file" name="avatar" onChange={this.handleChange} />
                                 <Button variant='dark' type='submit' onClick={() => this.props.finishActions()}>Cancelar</Button>
                                 <Button variant='dark' type='submit'>Confirmar</Button>
                             </Form>

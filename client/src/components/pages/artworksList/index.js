@@ -39,7 +39,7 @@ class ArtworksList extends Component {
                             <label>Filtra por</label>
                             <select>
                                 <option>Selecciona</option>
-                                {this.tagsValues.map((tag, index) => <option key={index} name='tags' value={tag}>{tag}</option>)}
+                                {this.tagsValues.map((tag, index) => <option key={index} name='tags' value={tag}>{tag} </option>)}
                             </select>
                         </form>
                     </div>
