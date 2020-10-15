@@ -30,9 +30,13 @@ class App extends Component {
     
   }
 
-  componentDidMount = () => { this.fetchUser() }
+  componentDidMount = () => this.fetchUser() 
 
-  setTheUser = user => this.setState({loggedInUser: user})
+  setTheUser = user => {
+
+    this.setState({ loggedInUser: user })
+    this.setNumOfItems()
+  }
 
   fetchUser = () => {
 
@@ -50,7 +54,6 @@ class App extends Component {
     if (this.state.loggedInUser) {
       this.setState({ cartItems: this.state.loggedInUser.cart.length })
     }
-
   }
   
   render() {

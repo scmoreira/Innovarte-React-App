@@ -6,7 +6,7 @@ import userService from './../../../service/user.service'
 
 import { CgShoppingCart } from 'react-icons/cg'
 
-import Alert from './../../shared/Alert'
+import Alert from './../../shared/Toast'
 import EditArtwork from './../editArtwork'
 
 import Modal from 'react-bootstrap/Modal'

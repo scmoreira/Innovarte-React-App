@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import userService from './../../../service/user.service'
 import artworksService from '../../../service/artworks.service'
@@ -43,8 +44,13 @@ class UserProfile extends Component {
         }
     }
 
-    componentDidMount = () => {
-        this.loadArtworks()
+    componentDidMount = () => this.loadArtworks()
+
+    componentDidUpdate(prevProps) {
+        if (this.props.loggedInUser.buyed !== prevProps.loggedInUser.buyed) {
+            this.setState({ buyedArtworks: [] })
+            this.loadBuyedArtworks()
+        }
     }
 
     loadInfo = newInfo => this.setState({ info: newInfo })
@@ -57,18 +63,22 @@ class UserProfile extends Component {
 
     loadBuyedArtworks = () => {
 
-        let buyedArtworksCopy = [...this.state.buyedArtworks]
+        let buyedArtworksCopy = []
 
-        this.state.info.buyed.forEach(item => {
+        this.props.loggedInUser.buyed.forEach(item => {
             this.artworksService
                 .getOneArtwork(item)
-                .then(response => buyedArtworksCopy.push(response.data))
-                .then(() => this.setState({ buyedArtworks: buyedArtworksCopy }))
+                .then(response => {
+                    buyedArtworksCopy.push(response.data)
+                    this.setState({ buyedArtworks: buyedArtworksCopy })
+            })
                 .catch(err => console.log({ err }))
         })
+    
     }
 
     loadArtworksOnSell = () => {
+
         this.userService
             .getOnSellArtworks(this.props.loggedInUser._id)
             .then(response => this.setState({ artworksOnSell: response.data }))
@@ -76,14 +86,14 @@ class UserProfile extends Component {
     }
 
     loadSoldArtworks = () => {
+
         this.userService
             .getSoldArtworks(this.props.loggedInUser._id)  
             .then(response => this.setState({ soldArtworks: response.data }))
             .catch(err => console.log('Error', {err}))
     }
 
-    handleModal = (pShowModal, pModalTypes) => 
-        this.setState(({ showModal: pShowModal,  RequestedModalType: pModalTypes}))
+    handleModal = (pShowModal, pModalTypes) => this.setState(({ showModal: pShowModal,  RequestedModalType: pModalTypes}))
 
     finishActions = () => {
         this.handleModal(false)
@@ -91,6 +101,7 @@ class UserProfile extends Component {
     }
 
     render() {
+        console.log(this.state.buyedArtworks)
         return (
             <>
                 <Container fluid className='user-profile'>
@@ -111,8 +122,8 @@ class UserProfile extends Component {
                             <h3>Obras compradas</h3>
                             <div className='container-fluid row'>
                                 {this.state.buyedArtworks.length > 0 ?
-                                    this.state.buyedArtworks.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)
-                                    : <p className='text-muted'>No tienes obras adquiridas...</p>}
+                                    this.state.buyedArtworks.map(artwork => <div key={artwork._id} className='col-sm-12 col-md-4 col-lg-3'><ArtworkCard key={artwork._id} {...artwork} /></div>)
+                                    : <h5 className='text-muted'>No tienes obras adquiridas...<Link to='/obras'> Comprar</Link></h5>}
                             </div>
                         </section>
                         <hr />

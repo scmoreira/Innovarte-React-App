@@ -70,7 +70,7 @@ class Cart extends Component {
                 this.props.setTheUser(response.data)
                 this.props.fetchUser()
                 this.updateProperties()
-                this.loadCart()
+                //this.loadCart()
             })
             .catch(err => console.log(err))
     }
@@ -96,7 +96,7 @@ class Cart extends Component {
                 .updateBuyedArtworks(this.state.user._id, item)
                 .then(response => {
                     this.props.setTheUser(response.data)
-                    this.props.fetchUser()
+                    //this.props.fetchUser()
                     this.resetCart()
                 })
                 .catch(err => console.log(err))
@@ -105,15 +105,12 @@ class Cart extends Component {
 
     render() {
 
-        console.log('después de comprar', this.state.user)
-        console.log('después de comprar', this.props.fetchUser)
-
         return (
             <>
             <main id='cart'>
                 <section className='container-fluid'>
                     <h1>Hola {this.state.user.username} </h1>
-                    {this.state.cartItemsInfo.length === 0 && <h3>Tu cesta está vacía! <Link to='/obras'>Comprar</Link></h3>}
+                    {this.state.cartItemsInfo.length === 0 && <h3>Tu cesta está vacía! <Link to='/obras'> Comprar</Link></h3>}
                 </section>
 
                 <section className='row cart-body'> 

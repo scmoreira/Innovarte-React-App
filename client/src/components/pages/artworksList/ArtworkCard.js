@@ -7,12 +7,12 @@ import Image from 'react-bootstrap/Image'
 
 const ArtworkCard = ({_id, title, artist, currency, price, image, tags}) => {
     return (
-        <div >
+        <div className=' col-md-6 col-lg-3'>
             <Card className="artwork-card">
                 <Image variant="top" src={image} thumbnail/>
                 <Card.Body>
-                    <h4>{title}</h4>
-                    <h5>{tags}<span className='text-muted'> de </span>{artist}</h5>
+                    <h5>{title}</h5>
+                    <h6>{tags}<span className='text-muted'> de </span>{artist}</h6>
                     <p>{price} {currency}</p>
                     <Link to={`/obras/detalles/${_id}`} style={{textDecoration: 'none'}}>
                         <Button variant="dark" size="sm" block>Detalles</Button>
