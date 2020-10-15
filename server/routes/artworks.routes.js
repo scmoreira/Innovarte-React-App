@@ -46,7 +46,7 @@ router.get('/getArtistArtworks/:artist', (req, res) => {
 // Find artworks by tag
 router.get('/getArtworksByTag/:tag', (req, res) => {
 
-    Artworks.find({ tags:  req.params.tag })
+    Artworks.find({ tags: req.params.tag, available: true })
         .then(works => { res.json(works) })
         .catch(err => res.status(500).json(err))
   
