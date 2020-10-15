@@ -34,6 +34,8 @@ E-commerce of artworks made with React.js
 
 ### User
 
+| Method | Path   | Description |
+| ------ | ------ | ----------- |
 | `GET` | api/allUserArtworks/:user_id | Get the User's artworks |
 | `GET` | api/soldArtworks/:user_id | Get the User's sold artworks |
 | `GET` | api/onSellArtworks/:user_id | Get the User's on sell artworks |
