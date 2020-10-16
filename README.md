@@ -2,6 +2,10 @@
 
 E-commerce of artworks made with React.js
 
+## Link
+
+Visita el sitio web [Innovarte](https://innovarte-client.herokuapp.com/)
+
 ## Install
 
 - Run `npm i` on the root directory
