@@ -10,6 +10,8 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import './EditProfile.css'
+
 class EditUserProfile extends Component {
 
     constructor(props) {
@@ -56,15 +58,15 @@ class EditUserProfile extends Component {
         const { username, email, role } = this.state.user
         
         return (
-            <Container>
+            <Container id='edit-form'>
                 <main>
                     <Row className='justify-content-center'>
-                        <Col md={{ span: 5 }}>
+                        <Col md={12}>
                             <h1>Tus datos actuales</h1>
                             <Form onSubmit={this.handleFormSubmit}>
                                 <FormsInputs label='Nombre de usuario' type='text' name='username' value={username} onChange={this.handleChange} />
                                 <FormsInputs label='Email' type='email' name='email' value={email} onChange={this.handleChange} />
-                                <Form.Group>
+                                <Form.Group className='edit-select'>
                                     <Form.Label>Eres: </Form.Label>
                                         <select name='role' value={role} onChange={this.handleChange}>
                                             <option>Selecciona</option>

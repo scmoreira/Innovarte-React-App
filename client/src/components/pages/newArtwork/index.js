@@ -8,6 +8,8 @@ import FormsInputs from './../../shared/FormsInputs'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import './NewArtwork.css'
+
 class NewArtwork extends Component {
     constructor(props) {
         super(props)
@@ -57,7 +59,7 @@ class NewArtwork extends Component {
 
         return (
 
-            <Form onSubmit={this.handleFormSubmit}>
+            <Form id='newArt-form' onSubmit={this.handleFormSubmit}>
                 
                 <FormsInputs label='Título de la obra' type="text" name="title" value={this.state.title} onChange={this.handleInputChange} />
                 <FormsInputs label='Nombre de artista' type="text" name="artist" value={this.state.artist} onChange={this.handleInputChange} />
@@ -80,8 +82,8 @@ class NewArtwork extends Component {
                         </select>
                 </Form.Group>
                 <FormsInputs label='Imagen' type='file' name='image' onChange={this.handleInputChange} />
-                <Button onClick={() => this.props.handleModal(false)} variant="dark">Cancelar</Button>
-                <Button variant="dark" type="submit">Confirmar</Button>
+                <Button className='addArtForm' onClick={() => this.props.handleModal(false)} variant="dark">Cancelar</Button>
+                <Button className='addArtForm' variant="dark" type="submit">Confirmar</Button>
             </Form>
         )
     }

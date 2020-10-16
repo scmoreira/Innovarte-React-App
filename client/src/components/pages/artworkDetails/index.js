@@ -94,12 +94,12 @@ class ArtworkDetails extends Component {
     render() {
         return (
             <section className='container-details'>
-                <div className='card container-fluid'>
+                <div className='card-details container-fluid'>
                     <div className='row'>
-                        <div className='col-md-6'>
-                            <img src={this.state.artwork.image} className='card-img' alt={this.state.title} thumbnail='true' />
+                        <div className='col-md-12 col-lg-6'>
+                            <img src={this.state.artwork.image} className='card-img' alt={this.state.title} />
                         </div>
-                        <div className='col-md-6 details'>
+                        <div className='col-md-12 col-lg-6 details'>
                             <div className='card-body'>
                                 <h5 className='card-title'>{this.state.artwork.title}</h5>
                                 <p className='card-text'>de <span className='title'>{this.state.artwork.artist}</span></p>
@@ -107,21 +107,24 @@ class ArtworkDetails extends Component {
                                 <p className='card-text'><small className='text-muted'>Materiales: {this.state.artwork.materials} |
                                 Medidas: {this.state.artwork.size} cm.</small></p>
                                 <p>Precio: {this.state.artwork.price} {this.state.artwork.currency}</p>
-
-                                {this.showBuyButton() && <button className='btn btn-dark' onClick={this.handleToCart}>
-                                    <CgShoppingCart className='add-to-cart' /></button> 
-                                } 
-                                
-                                {this.showUserButtons() &&
-                                    <>
-                                    <button onMouseEnter={()=> this.handleAlert(true)} onClick={this.handleDelete} className='btn btn-danger'>Eliminar</button>
-                                    {this.state.showAlert === true && <Alert title="Aviso!" text="Si borras esta obra no podrás recuperarla. Cierra para continuar." />}
-                                    <button onClick={() => this.handleModal(true)} className='btn btn-dark'>Editar</button>
-                                    </>
-                                }
-                                <button onClick={this.goBack} className='btn btn-dark'>Atrás</button>
-                                {this.showBuyButton() && <Link to='/carrito'><p>Tramitar compra</p></Link>}
-                                {!this.loggedInUser && <p>Regístrate para comprar! <Link to='/signup'>Registro</Link></p>}
+                                <div className='details-btn container-fluid'>
+                                    <div className='row'>
+                                        <button onClick={this.goBack} className='btn btn-dark'>Atrás</button>
+                                        {this.showBuyButton() && <button className='btn btn-dark' onClick={this.handleToCart}>
+                                            <CgShoppingCart className='add-to-cart' /></button> 
+                                        } 
+                                        
+                                        {this.showUserButtons() &&
+                                            <>
+                                            <button onMouseEnter={()=> this.handleAlert(true)} onClick={this.handleDelete} className='btn btn-danger'>Eliminar</button>
+                                            {this.state.showAlert === true && <Alert title="Aviso!" text="Si borras esta obra no podrás recuperarla. Cierra para continuar." />}
+                                            <button onClick={() => this.handleModal(true)} className='btn btn-dark'>Editar</button>
+                                            </>
+                                        }
+                                    </div>
+                                        {this.showBuyButton() && <Link to='/carrito' ><p>Tramitar compra</p></Link>}
+                                        {!this.loggedInUser && <p>Regístrate para comprar! <Link to='/signup'>Registrarme</Link></p>}
+                                </div>
                             </div>
                         </div>
                     </div>

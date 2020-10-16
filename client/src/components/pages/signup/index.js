@@ -47,23 +47,17 @@ class Signup extends Component {
 
         return (
             <Container className='signup-form'>
-                <main>
-                    <Row className='justify-content-center'>
-                        <Col md={{ span: 5 }}>
-                            <h1>Registro de usuario</h1>
-                            <Form onSubmit={this.handleFormSubmit}>
-                                <FormsInputs label='Nombre de usuario' type='text' name='username' value={this.state.username} onChange={this.handleChange} placeholder='Tu nombre de usuario' />
-                                <FormsInputs label='Email' type='email' name='email' value={this.state.email} onChange={this.handleChange} placeholder='Tu email' />
-                                <FormsInputs label='Contraseña' type='password' name='password' placeholder='*****' value={this.state.password} onChange={this.handleChange} />
-                                <Form.Group>
-                                    <label>Usuario<input type='radio' name='role' value='usuario' onChange={this.handleChange} /></label>
-                                    <label>Artista<input type='radio' name='role' value='artista' onChange={this.handleChange} /></label>
-                                </Form.Group>
-                                <Button variant='dark' type='submit'>Registrarme</Button>
-                            </Form>
-                        </Col>
-                    </Row>
-                </main>
+                <h1>Registro de usuario</h1>
+                <Form onSubmit={this.handleFormSubmit}>
+                    <FormsInputs label='Nombre de usuario' type='text' name='username' value={this.state.username} onChange={this.handleChange} placeholder='Tu nombre de usuario' />
+                    <FormsInputs label='Email' type='email' name='email' value={this.state.email} onChange={this.handleChange} placeholder='example@email.com' />
+                    <FormsInputs label='Contraseña' type='password' name='password' placeholder='*****' value={this.state.password} onChange={this.handleChange} />
+                    <Form.Group>
+                        <label>Usuario <input type='radio' name='role' value='usuario' onChange={this.handleChange} /></label>
+                        <label>Artista <input type='radio' name='role' value='artista' onChange={this.handleChange} /></label>
+                    </Form.Group>
+                    <Button variant='dark' type='submit'>Registrarme</Button>
+                </Form>
             </Container>
         )
     }

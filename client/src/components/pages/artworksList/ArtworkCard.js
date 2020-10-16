@@ -12,7 +12,7 @@ const ArtworkCard = ({_id, title, artist, currency, price, image, tags}) => {
                 <Image variant="top" src={image} thumbnail/>
                 <Card.Body>
                     <h5>{title}</h5>
-                    <h6>{tags}<span className='text-muted'> de </span>{artist}</h6>
+                    <h6>{tags}<span className='text-muted'> de </span><span className='artist-name'> {artist}</span></h6>
                     <p>{price} {currency}</p>
                     <Link to={`/obras/detalles/${_id}`} style={{textDecoration: 'none'}}>
                         <Button variant="dark" size="sm" block>Detalles</Button>

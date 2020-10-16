@@ -8,6 +8,7 @@ import Payment from '../../pages/payment'
 import ItemCard from './ItemCard'
 
 import { MdEuroSymbol } from 'react-icons/md'
+import { CgUserlane } from "react-icons/cg"
 
 import './Cart.css'
 
@@ -70,7 +71,7 @@ class Cart extends Component {
                 this.props.setTheUser(response.data)
                 this.props.fetchUser()
                 this.updateProperties()
-                //this.loadCart()
+                this.loadCart()
             })
             .catch(err => console.log(err))
     }
@@ -96,7 +97,6 @@ class Cart extends Component {
                 .updateBuyedArtworks(this.state.user._id, item)
                 .then(response => {
                     this.props.setTheUser(response.data)
-                    //this.props.fetchUser()
                     this.resetCart()
                 })
                 .catch(err => console.log(err))
@@ -109,25 +109,30 @@ class Cart extends Component {
             <>
             <main id='cart'>
                 <section className='container-fluid'>
-                    <h1>Hola {this.state.user.username} </h1>
+                    <h1><CgUserlane /> Bienvenid@ {this.state.user.username} </h1>
                     {this.state.cartItemsInfo.length === 0 && <h3>Tu cesta está vacía! <Link to='/obras'> Comprar</Link></h3>}
                 </section>
 
                 <section className='row cart-body'> 
-                    <div className='col-md-7'>
+                    <div className='col-md-6'>
                         <Payment />
                     </div>
-                    <div className='col-md-5 items'>
+                    <div className='col-md-6 items'>
                         <ul >
                             {this.state.cartItemsInfo.map(item => 
                                 <ItemCard key={item._id} item={{...item}} handleDelete={this.handleDelete} />
                             )}
-                            <div className='payconfirm'>
-                                <h5>Total a pagar: {this.state.totalPrice} <MdEuroSymbol /></h5>
-                                <button onClick={this.onClickConfirmPayment} className='btn btn-dark'>Confirmar pago</button>
+                            <div className='payconfirm container-fluid'>
+                                    <div className='row'>
+                                        <div className='col-9 col-lg-8'>
+                                            <h5>Total a pagar: {this.state.totalPrice} <MdEuroSymbol /></h5>
+                                        </div>
+                                        <div className='col-3 col-lg-4'>
+                                            <button onClick={this.onClickConfirmPayment} className='btn btn-dark'>Confirmar pago</button>
+                                        </div>
+                                    </div>
                             </div>
                         </ul>
-                        
                     </div>
                  </section>
              </main>

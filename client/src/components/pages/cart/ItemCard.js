@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 
+import './Cart.css'
+
 class ItemCard extends Component { 
   
   constructor(props) {
@@ -23,15 +25,15 @@ class ItemCard extends Component {
 
     return (
       <div flexgrow={1}>
-        <Paper spacing={2} margin='auto' maxwidth={500}>
-          <Grid container spacing={3}>
+        <Paper spacing={2} margin='auto'>
+          <Grid container spacing={2}>
             <Grid item>
               <ButtonBase id='item-img' >
                 <img  alt="Imagen de la obra" src={this.state.item.image} />
               </ButtonBase>
             </Grid>
             <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={4}>
+              <Grid item xs container direction="column" spacing={6}>
                 <Grid item xs>
                   <Typography gutterBottom variant="subtitle1">
                     {this.state.item.title}

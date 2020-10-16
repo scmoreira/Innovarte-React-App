@@ -43,19 +43,13 @@ class Login extends Component {
 
     render() {
         return (
-            <Container className='signup-form'>
-                <main>
-                    <Row className='justify-content-center'>
-                        <Col md={{ span: 5 }}>
-                            <h1>Inicio de sesión</h1>
-                            <Form onSubmit={this.handleFormSubmit}>
-                                <FormsInputs label='Tu nombre de usuario' type='text' name='username' value={this.state.username} onChange={this.handleChange} placeholder='Tu nombre de usuario' /> 
-                                <FormsInputs label='Contraseña' type='password' name='password' placeholder='********' value={this.state.password} onChange={this.handleChange} />
-                                <Button variant='dark' type='submit'>Iniciar sesión</Button>
-                            </Form>
-                        </Col>
-                    </Row>
-                </main>
+            <Container className='login-form'>
+                <h1>Inicio de sesión</h1>
+                <Form onSubmit={this.handleFormSubmit}>
+                    <FormsInputs label='Tu nombre de usuario' type='text' name='username' value={this.state.username} onChange={this.handleChange} placeholder='Tu nombre de usuario' /> 
+                    <FormsInputs label='Contraseña' type='password' name='password' placeholder='********' value={this.state.password} onChange={this.handleChange} />
+                    <Button variant='dark' type='submit'>Iniciar sesión</Button>
+                </Form>
             </Container>
         )
     }

@@ -7,6 +7,7 @@ import FormsInputs from './../../shared/FormsInputs'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import './EditArtwork.css'
 
 class EditArtwork extends Component {
     constructor(props) {
@@ -59,7 +60,7 @@ class EditArtwork extends Component {
 
         return (
 
-            <Form onSubmit={this.handleFormSubmit}>
+            <Form id='edit-artwork' onSubmit={this.handleFormSubmit}>
                 
                 <FormsInputs label='Título de la obra' type="text" name="title" value={title} onChange={this.handleChange} />
                 <FormsInputs label='Descripción' type="text" name="description" value={description} onChange={this.handleChange} />
@@ -82,8 +83,8 @@ class EditArtwork extends Component {
                 </Form.Group>
                 <FormsInputs label='Nombre de artista' type="text" name="artist" value={artist} onChange={this.handleChange} />
                 <FormsInputs label='Imagen' type="file" name="image" onChange={this.handleChange} />
-                <Button onClick={() => this.props.finishActions()} variant="dark">Cancelar</Button>
-                <Button variant="dark" type="submit">Confirmar</Button>
+                <Button className='editArtForm' onClick={() => this.props.finishActions()} variant="dark">Cancelar</Button>
+                <Button className='editArtForm' variant="dark" type="submit">Confirmar</Button>
             </Form>
         )
     }

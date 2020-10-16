@@ -10,8 +10,8 @@ import Col from 'react-bootstrap/Col'
 const FormsContainer = props => {
     return (
         <>
-            <Container>
-                <Row>
+            <Container id='auth-forms' className='container-fluid'>
+                <Row width='100%'>
                     <Col sm={12} md={6}>
                         <Signup setTheUser={props.setTheUser} {...props} />
                     </Col>    
@@ -21,7 +21,7 @@ const FormsContainer = props => {
                 </Row>
             </Container>
         </>
-   )
+    )
 }
 
 export default FormsContainer

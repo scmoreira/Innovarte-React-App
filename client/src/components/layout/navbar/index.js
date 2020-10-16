@@ -10,6 +10,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
 import { AiOutlinePoweroff } from 'react-icons/ai'
+import logo from './Mi_preferido.jpg'
 
 import './Navbar.css'
 
@@ -32,14 +33,13 @@ class Navigation extends Component {
             <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' fixed='top' className='navbar'>
                 <Link to='/'>
                     <Navbar.Brand className='brand'>
-                        <img alt='' src='' width='30' height='30' className='d-inline-block align-top' />
+                        <img alt='Brand logo' src={logo} width='30' height='30' className='d-inline-block align-top' />
                         {' '} Innovarte!
                     </Navbar.Brand>
                 </Link>
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' />
                 <Navbar.Collapse id='responsive-navbar-nav'>
                     <Nav className='ml-auto'>
-                        <NavLink to='/#cómo-funciona' className='nav-link'>Cómo funciona</NavLink>
                         <NavLink to='/obras' className='nav-link'>Obras</NavLink>
                         {!this.props.loggedInUser && <NavbarGuest />}
                         {this.props.loggedInUser && <NavbarUser loggedInUser={this.props.loggedInUser} cartItems={this.props.cartItems}/>}

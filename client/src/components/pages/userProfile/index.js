@@ -6,12 +6,13 @@ import artworksService from '../../../service/artworks.service'
 
 import InfoCard from './InfoCard'
 import EditUserProfile from '../editUserProfile'
-import ArtworkCard from './../artworksList/ArtworkCard'
 import NewArtwork from '../newArtwork'
+import ProfileArtwork from './ProfileArtwork'
 
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+
 
 import './UserProfile.css'
 
@@ -101,10 +102,10 @@ class UserProfile extends Component {
     }
 
     render() {
-        console.log(this.state.buyedArtworks)
+
         return (
             <>
-                <Container fluid className='user-profile'>
+                <Container fluid id='user-profile'>
                     <main>
                         <section id='user-details'>
                             <div className='container-fluid profile-head'>
@@ -118,39 +119,39 @@ class UserProfile extends Component {
                             </div>
                         </section>
                         <hr />
-                        <section>
+                        <section className='profile-artworks'>
                             <h3>Obras compradas</h3>
                             <div className='container-fluid row'>
                                 {this.state.buyedArtworks.length > 0 ?
-                                    this.state.buyedArtworks.map(artwork => <div key={artwork._id} className='col-sm-12 col-md-4 col-lg-3'><ArtworkCard key={artwork._id} {...artwork} /></div>)
-                                    : <h5 className='text-muted'>No tienes obras adquiridas...<Link to='/obras'> Comprar</Link></h5>}
+                                    this.state.buyedArtworks.map(artwork => <div key={artwork._id} className='col-sm-12 col-md-4 col-lg-3'><ProfileArtwork key={artwork._id} {...artwork} /></div>)
+                                    : <h5 className='text-muted no-art-msg'>No tienes obras adquiridas...<Link to='/obras'> Comprar</Link></h5>}
                             </div>
                         </section>
                         <hr />
                             {this.state.info.role === 'artista' &&
-                            <>
-                            <section>
-                                <div>
-                                    <h3>Tus obras en venta</h3>
-                                    <div className='container-fluid row'>
-                                        {this.state.artworksOnSell.length > 0 ?
-                                            this.state.artworksOnSell.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)
-                                            : <p className='text-muted'>No tienes obras en venta...</p>}
-                                    </div> 
-                                </div>
-                            </section>
-                            <hr />
-                            <section>
-                                <div>
-                                    <h3>Tus obras vendidas</h3>
-                                    <div className='container-fluid row'>
-                                        {this.state.soldArtworks.length > 0 ?
-                                            this.state.soldArtworks.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ArtworkCard {...artwork} /></div>)
-                                            : <p className='text-muted'>No tienes obras vendidas...</p>}
-                                    </div> 
-                                </div>
-                            </section>
-                            </>}
+                        <>
+                        <section>
+                            <div>
+                                <h3>Tus obras en venta</h3>
+                                <div className='container-fluid row'>
+                                    {this.state.artworksOnSell.length > 0 ?
+                                        this.state.artworksOnSell.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ProfileArtwork {...artwork} /></div>)
+                                        : <h5 className='text-muted no-art-msg'>No tienes obras en venta...</h5>}
+                                </div> 
+                            </div>
+                        </section>
+                        <hr />
+                        <section>
+                            <div>
+                                <h3>Tus obras vendidas</h3>
+                                <div className='container-fluid row'>
+                                    {this.state.soldArtworks.length > 0 ?
+                                        this.state.soldArtworks.map(artwork => <div className='col-sm-12 col-md-4 col-lg-3' key={artwork._id}><ProfileArtwork {...artwork} /></div>)
+                                        : <h5 className='text-muted last no-art-msg'>No tienes obras vendidas...</h5>}
+                                </div> 
+                            </div>
+                        </section>
+                        </>}
                     </main>
                 </Container>
 

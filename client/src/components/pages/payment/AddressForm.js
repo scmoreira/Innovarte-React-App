@@ -10,9 +10,9 @@ import Checkbox from '@material-ui/core/Checkbox'
 const AddressForm = () => {
     return (
         <>
-        <Typography variant="h4" gutterBottom>Dirección de envío</Typography>
-        <Grid container spacing={3}>
-            <Grid item xs={10} md={5}>
+        <Typography variant="h6" gutterBottom>Dirección de envío</Typography>
+        <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
                 <TextField
                     required
                     id="firstName"
@@ -23,7 +23,7 @@ const AddressForm = () => {
                     variant="outlined"
                 />
             </Grid>
-            <Grid item xs={10} md={5}>
+            <Grid item xs={12} md={6}>
                 <TextField
                     required
                     id="lastName"
@@ -34,7 +34,7 @@ const AddressForm = () => {
                     variant="outlined"
                 />
             </Grid>
-            <Grid item xs={10} >
+            <Grid item xs={12} md={12}>
                 <TextField
                     required
                     id="address1"
@@ -45,7 +45,7 @@ const AddressForm = () => {
                     variant="outlined"
                 />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12} md={12}>
                 <TextField
                     id="address2"
                     name="address2"
@@ -55,7 +55,7 @@ const AddressForm = () => {
                     variant="outlined"
                 />
             </Grid>
-            <Grid item xs={10} md={5}>
+            <Grid item xs={12} md={6}>
                 <TextField
                     required
                     id="city"
@@ -66,10 +66,10 @@ const AddressForm = () => {
                     variant="outlined"
                 />
             </Grid>
-            <Grid item xs={10} md={5}>
+            <Grid item xs={12} md={6}>
                 <TextField id="state" name="state" label="Estado/Provincia/Región" fullWidth variant="outlined" />
             </Grid>
-            <Grid item xs={10} md={5}>
+            <Grid item xs={12} md={6}>
                 <TextField
                     required
                     id="zip"
@@ -80,7 +80,7 @@ const AddressForm = () => {
                     variant="outlined"
                 />
             </Grid>
-            <Grid item xs={10} md={5}>
+            <Grid item xs={12} md={6}>
                 <TextField
                     required
                     id="country"

@@ -1,4 +1,9 @@
-.user-profile section {
+#user-profile main {
+    padding-top: 10%;
+    margin-bottom: 3%;
+}
+
+#user-profile section {
     margin-bottom: 3%;
 }
 
@@ -13,12 +18,12 @@
     align-items: center;
 }
 
-.user-profile h1 {
+#user-profile h1 {
     margin-top: 0;
     font-size: 2.5em;
 }
 
-#user-details Button {
+#user-details button {
     margin: 10% 0 5% 3%;
     width: fit-content;
     height: auto;
@@ -26,10 +31,14 @@
     font-size: 1em;
 }
 
-.user-profile h3 {
+#user-profile h3 {
     margin: 3% 25%;
-    font-size: 2em;
-    justify-content: center;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+#user-profile .last {
+    padding-bottom: 10%;
 }
 
 #cardInfo {
@@ -47,47 +56,40 @@
     float: left;
 }
 
-.userInfo p {
+#cardInfo p {
     margin-right: 35%;
     text-align: left;
+    font-size: .8em;
+}
+
+.modal-title {
+    font-family: 'Allura', cursive;
+    font-size: 4em;
 }
 
 /* Responsive */
-@media (min-width: 992px) {
-    .user-profile {
+@media (min-width: 768px) and (max-width: 992px)  {
+    #user-profile {
         padding-top: 5%;
         margin-left: 2%;
     }
 
-    .profile-head{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+    #user-profile section {
+        margin-bottom: 4%;
     }
 
-    .user-profile section {
-        margin-bottom: 7%;
-    }
-
-    .user-profile h1 {
+    #user-profile h1 {
         margin-top: 1%;
         margin-left: 2%;
-        font-size: 3em;
+        font-size: 2.7em;
     }
     
-    .user-profile h3 {
-        margin: 3% 0;
+    #user-profile h3 {
         font-size: 3.5em;
-        text-align: left;
     }
 
-    #user-details Button {
-        margin-left: 2%;
-        margin-right: 3%;
-        width: fit-content;
-        height: auto;
-        align-items: center;
-        font-size: 2em;
+    #user-details button {
+        font-size: 1.2em;
     }
 
     #cardInfo {
@@ -105,5 +107,84 @@
         font-size: 1.3em;
         margin-left: 3%;
         text-align: left;
+    }
+
+    .profile-artworks .row {
+        margin-right: auto;
+        margin-left: auto;
+    }
+   
+    .no-art-msg {
+        font-size: 2em;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    #user-profile {
+        padding-top: 2%;
+        margin-left: 2%;
+    }
+
+    #cardInfo {
+        margin-top: 0;
+        font-size: 2em;
+        border: none;
+        width: 700px;
+    }
+    
+    #cardInfo img {
+        width: 100px;
+    }
+    
+    .userInfo p {
+        font-size: 1.3em;
+        margin-left: 2%;
+        text-align: left;
+    }
+
+    .profile-artworks .row {
+        margin-right: auto;
+        margin-left: auto;
+    }
+   
+    .no-art-msg {
+        font-size: 2em;
+    }
+}
+
+@media (min-width: 1200px) {
+    #user-profile {
+        padding-top: 0;
+        margin-left: 1%;
+    }
+
+    #cardInfo {
+        margin-top: 0;
+        font-size: 2em;
+        border: none;
+        width: 800px;
+    }
+
+    #cardInfo h1 {
+        margin-left: 3%;
+    }
+    
+    #cardInfo img {
+        width: 120px;
+    }
+    
+    .userInfo p {
+        font-size: 1.2em;
+        margin-left: 3%;
+        text-align: left;
+    }
+
+    .profile-artworks .row {
+        margin-right: auto;
+        margin-left: auto;
+    }
+   
+    .no-art-msg {
+        font-size: 2em;
     }
 }

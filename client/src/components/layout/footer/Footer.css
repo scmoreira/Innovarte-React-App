@@ -30,11 +30,11 @@ footer p {
 @media (min-width: 992px) {
     footer {
         font-size: .9em;
-        height: 3.5%;
-        padding: .2%;
+        height: 3.8%;
+        padding: .1%;
     }
 
     footer p {
-        margin-top: .3%;
+        margin-top: .2%;
     }
 }
