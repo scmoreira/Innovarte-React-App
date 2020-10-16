@@ -45,6 +45,12 @@
     margin: 10px 0;
 }
 
+#artList h5 {
+    font-size: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .artwork-card {
     display: flex;
     justify-content: center;

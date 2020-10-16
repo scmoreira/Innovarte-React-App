@@ -10,7 +10,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
 import { AiOutlinePoweroff } from 'react-icons/ai'
-import logo from './Mi_preferido.jpg'
+import logo from './Mi_preferido.png'
 
 import './Navbar.css'
 

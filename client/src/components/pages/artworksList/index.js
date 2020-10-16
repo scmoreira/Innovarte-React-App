@@ -5,6 +5,8 @@ import ArtworkCard from './ArtworkCard'
 
 import Container from 'react-bootstrap/Container'
 
+import { CgUserlane } from "react-icons/cg"
+
 import './ArtworksList.css'
 
 class ArtworksList extends Component {
@@ -68,7 +70,7 @@ class ArtworksList extends Component {
                     </div>
                     <div className='container-fluid'>
                         <div className='row'>
-                            {this.state.artworks.length >= 1 ? this.state.artworks.map(elm => <ArtworkCard key={elm._id} {...elm} />) : <h5>No hay obras disponibles...<br></br><br></br>Realiza una nueva búsqueda.</h5>}
+                            {this.state.artworks.length >= 1 ? this.state.artworks.map(elm => <ArtworkCard key={elm._id} {...elm} />) : <h5>No hay obras disponibles...<br></br><br></br>Realiza una nueva búsqueda. <CgUserlane /></h5>}
                         </div>
                     </div>
                 </Container>
