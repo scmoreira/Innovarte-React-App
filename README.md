@@ -2,10 +2,6 @@
 
 E-commerce of artworks made with React.js
 
-## Link
-
-Visita el sitio web [Innovarte](https://innovarte-client.herokuapp.com/)
-
 ## Install
 
 - Run `npm i` on the root directory
@@ -49,62 +45,6 @@ Visita el sitio web [Innovarte](https://innovarte-client.herokuapp.com/)
 | `PUT` | api/deleteFromCart/:user_id/:artwork_id | Delete item from cart |
 | `PUT` | api/updateBuyedArtworks/:user_id/:artwork_id | Update buyed artworks |
 
-## Components
-
-- App
-- Layout
-  - Navbar
-    - NavbarGuest
-    - NavbarUser
-  - Footer
-- Pages
-  - Home
-  - Login
-  - Signup
-  - AuthForms
-    - FormsContainer
-  - ArtworksList
-    - ArtworkCard
-  - ArtworkDetails
-  - NewArtwork
-  - EditArtwork
-  - UserProfile
-    - InfoCard
-  - EditUserProfile
-  - Cart
-    -ItemCard
-  - Payment
-    - PaymentForm
-    - AddressForm
-  
-- Shared 
-    - FormsInputs
-    - Toast
-
-## Models
-
-- Artwork
-  - Title
-  - Image
-  - Description
-  - Size
-  - Materials
-  - Currency
-  - Price
-  - Tags (Type of artwork)
-  - Artist
-  - Owner (User ID)
-  - Available
-
-- User
-  - Username
-  - Password
-  - Avatar
-  - Email
-  - Role
-  - Cart
-  - Buyed
-  - Sold
 
 ## Built With
 
