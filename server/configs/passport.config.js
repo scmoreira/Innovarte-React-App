@@ -9,7 +9,7 @@ const User = require('../models/user.model')
 module.exports = app => {
 
     app.use(session({
-        secret: "innovarte-react-app",
+        secret: process.env.SECRET,
         resave: true,
         saveUninitialized: true
     }))

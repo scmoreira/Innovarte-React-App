@@ -79,10 +79,22 @@ const users = [
         role: 'admin'
     },
     {
-        username: 'artista',
-        password: 'artista',
-        email: 'artista@email.com',
+        username: 'artista1',
+        password: 'artista1',
+        email: 'artista1@email.com',
         role: 'artista'
+    },
+    {
+        username: 'artista2',
+        password: 'artista2',
+        email: 'artista2@email.com',
+        role: 'artista'
+    },
+    {
+        username: 'usuario',
+        password: 'usuario',
+        email: 'usuario@email.com',
+        role: 'usuario'
     }
 ]
 
