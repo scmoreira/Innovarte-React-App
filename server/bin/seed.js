@@ -70,7 +70,7 @@ const artworks = [
         owner: '5f80296e033ae173994875e1'
     }
 ]
-https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Portland_Vase_BM_Gem4036_n5.jpg/800px-Portland_Vase_BM_Gem4036_n5.jpg
+
 const users = [
     {
         username: 'cecilia',
