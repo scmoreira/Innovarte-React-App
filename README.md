@@ -1,10 +1,14 @@
 # **Innovarte-React-App**
 
-E-commerce of artworks made with React.js
+E-commerce of artworks made with MERN stack. 
+I used functional and class components from React, no hooks in this version. 
+
+<img width='700' height='400' src='./image.PNG' alt='screenShot'>
 
 ## Install
 
-- Run `npm i` on the root directory
+- Run `npm i` on the root directory.
+- You will need a data base and a Cloudinary account.
 
 ## API endpoints
 
@@ -49,11 +53,12 @@ E-commerce of artworks made with React.js
 ## Built With
 
 - HTML5
-- CSS
+- CSS - Bootstrap - Material UI
 - JavaScript - ES6
-- Node.js
 - React.js.
+- Node.js / Express.js
+- Mongo DB / Mongoose
 
 ## Author
 
-S. Cecilia Moreira
+Silvana Cecilia Moreira
