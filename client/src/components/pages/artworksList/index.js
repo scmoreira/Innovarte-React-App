@@ -11,8 +11,8 @@ import './ArtworksList.css'
 
 class ArtworksList extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             artworks: []
         }
@@ -35,10 +35,7 @@ class ArtworksList extends Component {
         let tag = event.target.value
 
         if (tag === 'Todos') {
-
             this.loadArtworks()
-            console.log(this.state.artworks)
-
         } else {
             this.artworkService
                 .getArtworksByTag(tag)

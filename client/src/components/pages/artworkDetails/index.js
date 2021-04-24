@@ -82,13 +82,12 @@ class ArtworkDetails extends Component {
 
     goBack = () => {
         if (this.loggedInUser && this.loggedInUser._id === this.state.artwork.owner) {
-            this.props.history.push('/perfil')                // Investigar otro modo de volver hacia atrás, cuando son componentes reusables
-            return                                            // y tiene que volver a la página desde donde se ha dirigido a ese componente. 
+            this.props.history.push('/perfil')                
+            return                                            
         } else {
             this.props.history.push('/obras')
             return
         }                                      
-    
     }                                           
     
     render() {

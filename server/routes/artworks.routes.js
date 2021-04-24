@@ -31,7 +31,6 @@ router.get('/getOneArtwork/:artwork_id', (req, res) => {
     Artworks.findById(req.params.artwork_id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
-    
 })
 
 // Find the artworks of an artist

@@ -72,7 +72,7 @@ class UserProfile extends Component {
                 .then(response => {
                     buyedArtworksCopy.push(response.data)
                     this.setState({ buyedArtworks: buyedArtworksCopy })
-            })
+                })
                 .catch(err => console.log({ err }))
         })
     

@@ -1,7 +1,10 @@
+Update: Since this project I continue learning React and some of its frameworks. Reviewing this code today, I can see now how many errors I made. One of them is that I rely on  this.props and this.state for calculating the next state, when they may be updated asynchronously. 
+Cart component needs a complete refactor, I will work on it soon. 
+
 # **Innovarte-React-App**
 
 E-commerce of artworks made with MERN stack. 
-I used functional and class components from React, no hooks in this version. 
+I used functional and class components from React, no hooks in this version.
 
 <img width='700' height='400' src='./image.PNG' alt='screenShot'>
 

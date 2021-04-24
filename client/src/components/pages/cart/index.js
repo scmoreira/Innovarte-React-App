@@ -1,3 +1,5 @@
+/* This component, like others, it has to be refactor because this.props and this.state may be updated asynchronously, and I should not rely on their values for calculating the next state. */
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
