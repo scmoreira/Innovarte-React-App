@@ -4,15 +4,15 @@ class AuthService {
 
     constructor() {
         this.api = axios.create({
-            baseURL: process.env.REACT_APP_API_URL,
+            baseURL: 'http://localhost:5000/' || process.env.REACT_APP_API_URL ,
             withCredentials: true
         })
     }
 
-    signup = user => this.api.post('/signup', user)
-    login = user => this.api.post('/login', user)
-    logout = () => this.api.post('/logout')
-    isLoggedIn = () => this.api.get('/loggedin')
+    signup = user => this.api.post('/api/signup', user)
+    login = user => this.api.post('/api/login', user)
+    logout = () => this.api.post('/api/logout')
+    isLoggedIn = () => this.api.get('/api/loggedin')
 
 }
 
