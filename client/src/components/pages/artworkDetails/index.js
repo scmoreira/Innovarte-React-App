@@ -73,7 +73,7 @@ class ArtworkDetails extends Component {
     }
 
     showUserButtons = () => {
-        if (this.loggedInUser && this.loggedInUser._id === this.state.artwork.owner && this.state.artwork.available === true) {
+        if (this.loggedInUser && (this.loggedInUser._id === this.state.artwork.owner) && (this.state.artwork.available === true)) {
             return true
         } else {
             return false

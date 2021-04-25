@@ -32,7 +32,7 @@ class EditArtwork extends Component {
 
         this.artworksService = new artworksService()
     }
-
+    
     handleChange = e => {
         const value = e.target.type === 'file' ? e.target.files[0] : e.target.value 
         this.setState({ update: { ...this.state.update, [e.target.name]: value } })
@@ -41,7 +41,7 @@ class EditArtwork extends Component {
     handleFormSubmit = e => {
         
         e.preventDefault()
-        
+        console.log(this.state.owner)
         const uploadData = new FormData()
 
         Object.keys(this.state.update).forEach(key => {
